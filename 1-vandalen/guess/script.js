@@ -2,21 +2,42 @@
 
 window.onload = function(){
 	
-	var secret = 50; // Detta tal behöver bytas ut mot ett slumpat tal.
+	var secret = Math.floor( Math.random() * 100)+1; //Talet 50 utbytt mot slumpat tal enligt instruktionen: Detta tal behöver bytas ut mot ett slumpat tal.
+	var noOfGuesses = 0;
 	
 	// I denna funktion ska du skriva koden för att hantera "spelet"
 	var guess = function(number){
-		console.log("Det hemliga talet: " + secret); // Du når den yttre variabeln secret innifrån funktionen.
-		console.log("Du gissade: " + number); // Detta nummer är det som användaren gissade på.
+		// console.log("Det hemliga talet: " + secret); // Du når den yttre variabeln secret inifrån funktionen.
+		// console.log("Du gissade: " + number); // Detta nummer är det som användaren gissade på.
 			
 		// Plats för förändring.
-
-
-		// Returnera exempelvis: 
+		var currentGuess = 0;
+        noOfGuesses+=1;
+        
+        // Kontrollerar så att det inmatade värdet kan typomvandlas till ett nummer
+        if (isNaN(number)) {
+            return[false, "Du måste mata in ett tal mellan 1 och 100."];
+        }
+        else {
+            currentGuess = +number;
+        }
+        
+        // Använder en switch för att jämföra talen
+        switch(true) {
+            case currentGuess === secret:
+                return[true, "Grattis! Det hemliga talet var " + secret + " och du behövde " + noOfGuesses + " gissningar för att hitta det!"];
+            case currentGuess >= 1 && currentGuess < secret:
+                return[false, "Det hemliga talet är högre. Försök igen!"];
+            case currentGuess <= 100 && currentGuess > secret:
+                return[false, "Det hemliga talet är lägre. Försök igen!"];
+            default:
+                return[false, "Du måste mata in ett tal mellan 1 och 100."];
+        }
+        // Returnera exempelvis: 
 		// [true, "Grattis du vann! Det hemliga talet var X och du behövde Y gissningar för att hitta det."]
 		// [false, "Det hemliga talet är högre!"]
 		// [false, "Det hemliga talet är lägre!"]
-		// [false, "Talet är utanför intervallet 0 - 100"]		
+		// [false, "Talet är utanför intervallet 0 - 100"]	
 	};
 	
 	// ------------------------------------------------------------------------------
