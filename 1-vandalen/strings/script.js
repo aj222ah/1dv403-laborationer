@@ -8,12 +8,41 @@ window.onload = function(){
 		// Returnera den konverterade strängen.
 		// Vid fel, kasta ett undantag med ett meddelande till användaren. 
 	
-
-
-
-
-
-
+        // Använder en array under konverteringen
+        var holderArray = new Array(str.length);
+        var letter, i, convertedString = "";
+        
+        try {
+            if (str === "") { throw new Error(); }
+        }
+        catch (error) {
+            return "Du har inte matat in någon text.";
+        }
+        
+        for (i = 0; i < str.length; i++)
+        {
+            letter = str[i];
+            
+            if ( letter.toLowerCase() === "a") {
+                holderArray[i] = "#";
+            }
+            else if (letter.toUpperCase() === letter && letter.toLowerCase() !== letter) {
+                holderArray[i] = letter.toLowerCase();
+            }
+            else if (letter.toLowerCase() === letter && letter.toUpperCase() !== letter) {
+                holderArray[i] = letter.toUpperCase();
+            }
+            else {
+                holderArray[i] = letter;
+            }
+        }
+        
+        for (i = 0; i < holderArray.length; i++)
+        {
+            convertedString = convertedString + holderArray[i];
+        }
+        
+        return convertedString;
 	};
 	// ------------------------------------------------------------------------------
 
