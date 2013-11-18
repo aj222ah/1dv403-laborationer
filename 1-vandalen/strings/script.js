@@ -13,10 +13,10 @@ window.onload = function(){
         var letter, i, convertedString = "";
         
         try {
-            if (str === "") { throw new Error(); }
+            if (str === "") { throw new Error("Du har inte matat in någon text!"); }
         }
         catch (error) {
-            return "Du har inte matat in någon text.";
+            return error.message;
         }
         
         for (i = 0; i < str.length; i++)
