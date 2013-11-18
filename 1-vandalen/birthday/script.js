@@ -14,12 +14,10 @@ window.onload = function(){
             return error.message;
 		}
 		
-		var remainingDays = 0, i = 0;
+		var remainingDays = 0, i = 0, nextBirthday;
 		var today = new Date();
 		var dateOfBirth = new Date(date);
-		var nextBirthday = new Date((today.getFullYear()) + "-" + (dateOfBirth.getMonth() + 1) + "-" + (dateOfBirth.getDate()));
 		var daysOfMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-		
 		
 		if (today.getMonth() == dateOfBirth.getMonth()) {
 		    if (today.getDate() === dateOfBirth.getDate()) {
@@ -31,28 +29,28 @@ window.onload = function(){
 		    else {
 		        //beräkna
 		    }
-		    
 		}
 		else if (today.getMonth() < dateOfBirth.getMonth()) {
 		    remainingDays = dateOfBirth.getDate();
 		    
 		    for (i = (dateOfBirth.getMonth() - 1); i > today.getMonth(); i--) {
 		        remainingDays = (remainingDays + daysOfMonth[i]);
-		        console.log(i);
-		        console.log(remainingDays);
 		    }
 		    
 		    remainingDays += (daysOfMonth[today.getMonth()] - today.getDate());
-		    console.log(daysOfMonth[today.getMonth()]);
 		}
-		else {
+		else if (today.getMonth() > dateOfBirth.getMonth()) {
+		    nextBirthday  = new Date((today.getFullYear() + 1) + "-" + (dateOfBirth.getMonth() + 1) + "-" + (dateOfBirth.getDate()));
 		    
-		    
+		    // Formel för skottårsberäkning från: http://stackoverflow.com/questions/16353211/check-if-year-is-leap-year-in-javascript
+		    // skottårs-kod: (year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0
+		    console.log(nextBirthday);
+		    console.log(remainingDays);
 		}
 		
 		
-		console.log("Födelsemånad: " + dateOfBirth.getMonth());
-		console.log("Nuvarande månad: " + today.getMonth());
+		
+		
 		return remainingDays;
 		
 	};
