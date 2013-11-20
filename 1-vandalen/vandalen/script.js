@@ -9,7 +9,7 @@ var makePerson = function(persArr){
     };
     
     var totalAge = 0;
-    var person, tempA, tempB;
+    var person;
     
     persArr.sort(function(a,b) {return a.age - b.age;});
     result.minAge = persArr[0].age;
@@ -21,40 +21,23 @@ var makePerson = function(persArr){
     
     result.averageAge = Math.round(totalAge / persArr.length);
     
-    console.log("Totalålder: " + totalAge + ". Medelålder: " + result.averageAge);
-    
-    /*
-    
-    persArr.sort(function(a,b) {
-        tempA = a.name.toLowerCase();
-        tempB = b.name.toLowerCase();
-        if (tempA > tempB)
-        {
-            return b.name - a.name;
-        }
-        else
-        {
-            return a.name - b.name;
-        }
+    persArr.sort(function(a, b) {
+        // Fungerande sortering (å,ä,ö) hittad på: http://stackoverflow.com/questions/6712034/sort-array-by-firstname-alphabetically-in-javascript
+        return a.name.localeCompare(b.name);
     });
     
     for(var i = 0; i < persArr.length; i++)
     {
-        persArr.names += persArr[i].name;
-        if (i !== persArr.length - 1)
+        if (i !== 0)
         {
-            persArr.names += ", ";
+            result.names = result.names + ", " + persArr[i].name;
+        }
+        else
+        {
+            result.names = persArr[i].name;
         }
     }
     
-    alert(persArr.names);
-    /*
-    for (person in persArr) {
-        persArr.names += persArr[person].name + ", ";
-        console.log(persArr.names);
-    }*/
-    
-    
     return result;
-}
+};
 
