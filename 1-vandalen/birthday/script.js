@@ -14,61 +14,20 @@ window.onload = function(){
             return error.message;
 		}
 		
-		function nextYearBirthday(today, dateOfBirth)
-		{
-		    var nextYear = today.getFullYear() + 1;
-		    if (today.getMonth() !== 11) {
-		        for (i = 11; i > today.getMonth(); i--) {
-		            remainingDays += daysOfMonth[i];
-		        }
-		    }
-		    
-		    remainingDays += daysOfMonth[today.getMonth()] - today.getDate();
-		    
-		    if (dateOfBirth.getMonth() > 0) {
-		        for (i = dateOfBirth.getMonth() - 1; i >= 0; i--) {
-		            remainingDays += daysOfMonth[i];
-		            
-		            if (i === 1) {
-		                // Formel för skottårsberäkning från: http://stackoverflow.com/questions/16353211/check-if-year-is-leap-year-in-javascript
-		                if (((nextYear % 4 === 0) && (nextYear % 100 !== 0)) || (nextYear % 400 === 0)) {
-		                    remainingDays += 1;
-		                }
-		            }
-		        }
-		    }
-		    
-		    remainingDays += dateOfBirth.getDate();
-		    return remainingDays;
-		}
-		
-		var remainingDays = 0, i = 0;
+		var day = 1000 * 60 * 60 * 24;
 		var today = new Date();
 		var dateOfBirth = new Date(date);
-		var daysOfMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+		var nextBday = new Date(today.getFullYear() + "-" + (dateOfBirth.getMonth()+1) + "-" + dateOfBirth.getDate());
+		var remainingDays = Math.round((today.getTime() - nextBday.getTime())/day);
 		
-		if (today.getMonth() == dateOfBirth.getMonth()) {
-		    if (today.getDate() === dateOfBirth.getDate()) {
-		        remainingDays = 0;
-		    }
-		    else if (dateOfBirth.getDate() > today.getDate()) {
-		        remainingDays = (dateOfBirth.getDate() - today.getDate());
-		    }
-		    else {
-		        remainingDays = nextYearBirthday(today, dateOfBirth);
-		    }
+		if (remainingDays <= 0)
+		{
+		    remainingDays = -(remainingDays);
 		}
-		else if (today.getMonth() < dateOfBirth.getMonth()) {
-		    remainingDays = dateOfBirth.getDate();
-		    
-		    for (i = (dateOfBirth.getMonth() - 1); i > today.getMonth(); i--) {
-		        remainingDays += daysOfMonth[i];
-		    }
-		    
-		    remainingDays += (daysOfMonth[today.getMonth()] - today.getDate());
-		}
-		else if (today.getMonth() > dateOfBirth.getMonth()) {
-		    remainingDays = nextYearBirthday(today, dateOfBirth);
+		else
+		{
+		    nextBday = new Date((today.getFullYear()+1) + "-" + (dateOfBirth.getMonth()+1) + "-" + dateOfBirth.getDate());
+		    remainingDays = (Math.round((nextBday.getTime() - today.getTime())/day));
 		}
 		
 		return remainingDays;
