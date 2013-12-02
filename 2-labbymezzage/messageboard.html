@@ -6,11 +6,16 @@
      	<link rel="stylesheet" href="css/basic.css" />
     </head>
     <body>
-        <h1>Dina meddelanden</h1>
-        <div id="messageHolder">
+        <main>
+            <h1>Dina meddelanden</h1>
+            <section id="messageDisplay">
             
-        </div>
-        
+            </section>
+            <section id="messageInput">
+                <textarea id="newMessage" rows="7" cols="60"></textarea><br>
+                <input type="submit" value="Skriv" id="sendButton">
+            </section>
+        </main>
     	<script src="javascript/message.js"></script>
     	<script src="javascript/messageManager.js"></script>
     </body>

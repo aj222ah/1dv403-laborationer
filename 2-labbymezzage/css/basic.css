@@ -48,3 +48,75 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+body {
+    font-family: Arial;
+    font-size: 12pt;
+    background-color: rgb(199, 199, 199);
+}
+
+main {
+    width: 50%;
+    min-width: 600px;
+    margin-left: 10%;
+    margin-top: 20px;
+    background-color: white;
+}
+
+h1 {
+    font-size: 20pt;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+}
+
+#messageDisplay, #messageInput {
+    text-align: center;
+}
+
+#messageDisplay p {
+    border: 1px solid black;
+    display: block;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -ie-border-radius: 10px;
+    -o-border-radius: 10px;
+    border-radius: 10px;
+    background-color: rgb(255, 207, 159);
+    padding: 5px;
+    margin: 10px;
+    margin-left: 45px;
+    width: 500px;
+    
+}
+
+#newMessage {
+    border: 2px solid black; 
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -ie-border-radius: 10px;
+    -o-border-radius: 10px;
+    border-radius: 10px;
+    font-family: Arial;
+    font-size: 12pt;
+    padding: 5px;
+    font-weight: bold;
+}
+
+#newMessage:focus {
+    background-color: rgb(255, 255, 219);
+}
+
+#sendButton {
+    border: 1px solid black; 
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -ie-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px; 
+    padding: 3px;
+    font-family: Arial;
+    font-size: 14pt;
+    font-weight: bold;
+    margin: 5px;
+}
