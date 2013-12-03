@@ -2,6 +2,8 @@
 
 function messageHandler () {
     var sendButton = document.querySelector("sendButton");
+    var messages = [];
+    
     
     
 }

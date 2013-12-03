@@ -11,7 +11,29 @@ function Message (messageText, date) {
     };
     
     this.getDate = function() {
-        return date;
+        var dateString;
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        var hour = date.getHours();
+        var minute = date.getMinutes();
+        
+        if(month < 10) {
+            month = "0" + month;
+        }
+        if (day < 10) {
+            day = "0" + day;
+        }
+        if (hour < 10) {
+            hour = "0" + hour;
+        }
+        if (minute < 10) {
+            minute = "0" + minute;
+        }
+        
+        dateString = year + "-" + month + "-" + day + " " + hour + ":" + minute;
+        
+        return dateString;
     };
     
     this.setDate = function(dateInput) {
