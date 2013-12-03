@@ -69,24 +69,37 @@ h1 {
     padding: 10px;
 }
 
-#messageDisplay, #messageInput {
-    text-align: center;
+#messageInput {
+    margin-left: 45px;
 }
 
 .display {
     border: 1px solid black;
-    display: block;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     -ie-border-radius: 10px;
     -o-border-radius: 10px;
     border-radius: 10px;
     background-color: rgb(255, 207, 159);
-    padding: 5px;
+    padding: 10px;
+    padding-bottom: 20px;
     margin: 10px;
     margin-left: 45px;
     width: 500px;
-    
+}
+
+.textDisplay {
+    width: 350px;
+    text-align: left;
+    padding: 0; /*10px 0 10px 0;*/
+}
+
+.timeDisplay {
+    text-align: right;
+    font-size: 8pt;
+    width: 150px;
+    float: right;
+    padding: 5px 0 5px 0;
 }
 
 #messageCounter {
@@ -127,4 +140,5 @@ h1 {
     font-size: 14pt;
     font-weight: bold;
     margin: 5px;
+    margin-left: 235px;
 }

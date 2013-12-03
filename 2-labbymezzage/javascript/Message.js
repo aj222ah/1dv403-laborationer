@@ -15,23 +15,16 @@ function Message (messageText, date) {
         var year = date.getFullYear();
         var month = date.getMonth() + 1;
         var day = date.getDate();
-        var hour = date.getHours();
-        var minute = date.getMinutes();
+        
         
         if(month < 10) {
             month = "0" + month;
         }
-        if (day < 10) {
+        else if (day < 10) {
             day = "0" + day;
         }
-        if (hour < 10) {
-            hour = "0" + hour;
-        }
-        if (minute < 10) {
-            minute = "0" + minute;
-        }
         
-        dateString = year + "-" + month + "-" + day + " " + hour + ":" + minute;
+        dateString = year + "-" + month + "-" + day;
         
         return dateString;
     };
@@ -40,10 +33,31 @@ function Message (messageText, date) {
         date = dateInput;
     };
     
+    this.getTime = function() {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
+        var timeString;
+        
+        if (hours < 10) {
+            hours = "0" + hours;
+        }
+        else if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        else if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
+        
+        timeString = hours + ":" + minutes + ":" + seconds;
+        
+        return timeString;
+    }
+    
 }
 
 Message.prototype.toString = function() {
-    return this.getText() + " (" + this.getDate() + ").";
+    return this.getText() + " (" + this.getDate() + " "+ this.getTime() + ").";
 };
 
 Message.prototype.getHTMLtext = function() {
@@ -51,3 +65,6 @@ Message.prototype.getHTMLtext = function() {
     tempMessage.replace(/\n/g, "<br>");
     return tempMessage;
 };
+
+
+
