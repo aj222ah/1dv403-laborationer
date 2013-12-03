@@ -2,8 +2,7 @@
 
 function messageHandler () {
     var sendButton = document.querySelector("sendButton");
-    alert("Hej!");
 }
 
 
-window.onload = messageHandler;
+window.addEventListener("load", messageHandler, false);
