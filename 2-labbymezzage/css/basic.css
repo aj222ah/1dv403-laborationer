@@ -56,8 +56,7 @@ body {
 }
 
 main {
-    width: 50%;
-    min-width: 600px;
+    width: 600px;
     margin-left: 10%;
     margin-top: 20px;
     background-color: white;
@@ -74,7 +73,7 @@ h1 {
     text-align: center;
 }
 
-#messageDisplay p {
+.display {
     border: 1px solid black;
     display: block;
     -moz-border-radius: 10px;
@@ -87,6 +86,15 @@ h1 {
     margin: 10px;
     margin-left: 45px;
     width: 500px;
+    
+}
+
+#messageCounter {
+    color: silver;
+    font-size: 10pt;
+    padding-right: 50px;
+    padding-bottom: 10px;
+    text-align: right;
     
 }
 
