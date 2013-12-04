@@ -7,71 +7,20 @@ var MessageBoard =  {
     
     init: function(e) {
         var sendButton = document.getElementById("sendButton");
+        var messageHolder = document.getElementById("newMessage");
         MessageBoard.counterDisplay();
-         
+        
+        messageHolder.addEventListener("keypress", MessageBoard.keyTest, false);
         sendButton.addEventListener("click", MessageBoard.handleMessages, false);
     },
     
-    counterDisplay: function() {
-        var text = document.getElementById("messageCounter");
-        var last = text.lastChild;
-        var addition;
-        
-        if (MessageBoard.counterDisplayCounter !== 0) {
-            text.removeChild(last);
-        }
-        
-        MessageBoard.noOfMessages = MessageBoard.messages.length;
-        addition = document.createTextNode(MessageBoard.noOfMessages);
-        text.appendChild(addition);
-        MessageBoard.counterDisplayCounter += 1;
-    },
-    
-    handleMessages: function(e) {
-        if (!e) { var e = window.event; }
-        var messageHolder = document.getElementById("newMessage");
-        var userInput, createTime;
-        createTime = new Date();
-        userInput = messageHolder.value;
-        MessageBoard.messages.push(new Message(userInput, createTime));
-        
-        if(MessageBoard.messages.length >= 1) {
-            MessageBoard.displayMessages();
-        }
-        
-        messageHolder.value = "";
-    },
-        
-    displayMessages: function() {
-        var i, messageArea, messTimeArray, messDelArray;
-        
-        MessageBoard.removeMessageFromDisplay();
-        
-        for(i = 0; i < MessageBoard.messages.length; i++) {
-            MessageBoard.addMessageToDisplay(i);
-        }
-        
-        messageArea = document.getElementById("messageDisplay");
-        messTimeArray = messageArea.getElementsByClassName("showTime");
-        messDelArray = messageArea.getElementsByClassName("deleteMessage");
-        
-        for (i = 0; i < messTimeArray.length; i++) {
-            messTimeArray[i].addEventListener("click", MessageBoard.displayTime, false);
-            messDelArray[i].addEventListener("click", MessageBoard.removeMessageFromArray, false);
-        }
-        
-        MessageBoard.counterDisplay();
-    },
-        
     addMessageToDisplay: function (no) {
         var displayZone = document.getElementById("messageDisplay");
-        var messDiv, messP, messPText, messTimeP, messTimePText, messTimeA, messDelA, messTimeImg, messDelImg; 
+        var messDiv, messP, messPText, messTimeP, messTimePText, messTimeA, messDelA, messTimeImg, messDelImg, messSubstrArr; 
         
         // Div-tag för meddelande och p-tag för utskrift av meddelandetext
         messDiv = document.createElement("div");
-        messP = document.createElement("p");
-        messP.setAttribute("class", "textDisplay");
-        messPText = document.createTextNode(MessageBoard.messages[no].getHTMLtext());
+        
         
         // Taggar för att visa tids-ikon
         messTimeA = document.createElement("a");
@@ -97,6 +46,10 @@ var MessageBoard =  {
         messDelImg.setAttribute("class", "icons");
         messDelA.appendChild(messDelImg);
         
+        messP = document.createElement("p");
+        messP.setAttribute("class", "textDisplay");
+        messPText = document.createTextNode(MessageBoard.messages[no].getHTMLtext());
+        
         // Infoga taggar till föräldra-elementet
         messP.appendChild(messDelA);
         messP.appendChild(messTimeA);
@@ -117,6 +70,99 @@ var MessageBoard =  {
         displayZone.appendChild(messDiv);
     },
     
+    counterDisplay: function() {
+        var text = document.getElementById("messageCounter");
+        var last = text.lastChild;
+        var addition;
+        
+        if (MessageBoard.counterDisplayCounter !== 0) {
+            text.removeChild(last);
+        }
+        
+        MessageBoard.noOfMessages = MessageBoard.messages.length;
+        addition = document.createTextNode(MessageBoard.noOfMessages);
+        text.appendChild(addition);
+        MessageBoard.counterDisplayCounter += 1;
+    },
+    
+    displayMessages: function() {
+        var i, messageArea, messTimeArray, messDelArray;
+        
+        MessageBoard.removeMessageFromDisplay();
+        
+        for(i = 0; i < MessageBoard.messages.length; i++) {
+            MessageBoard.addMessageToDisplay(i);
+        }
+        
+        messageArea = document.getElementById("messageDisplay");
+        messTimeArray = messageArea.getElementsByClassName("showTime");
+        messDelArray = messageArea.getElementsByClassName("deleteMessage");
+        
+        for (i = 0; i < messTimeArray.length; i++) {
+            messTimeArray[i].addEventListener("click", MessageBoard.displayTime, false);
+            messDelArray[i].addEventListener("click", MessageBoard.removeMessageFromArray, false);
+        }
+        
+        MessageBoard.counterDisplay();
+    },
+    
+    displayTime: function(e) {
+        if (!e) { var e = window.event; }
+        var numberID = this.getAttribute("id");
+        var number, index;
+        
+        index = numberID.search(" ");
+        number = numberID.slice(index+1);
+        
+        alert("Detta meddelande skapades " + MessageBoard.messages[number].getDate() + " klockan " + MessageBoard.messages[number].getTime() + ".");
+    },
+    
+    handleMessages: function(e) {
+        if (!e) { var e = window.event; }
+        var messageHolder = document.getElementById("newMessage");
+        var userInput, createTime;
+        createTime = new Date();
+        userInput = messageHolder.value;
+        MessageBoard.messages.push(new Message(userInput, createTime));
+        
+        if(MessageBoard.messages.length >= 1) {
+            MessageBoard.displayMessages();
+        }
+        
+        messageHolder.value = "";
+    },
+    
+    keyTest: function(e) {
+        if (!e) { var e = window.event; }
+        
+        if (e.keyCode === 13 || e.which === 13) {
+            if(e.shiftKey) {
+                e.preventDefault;
+            }
+            else {
+                MessageBoard.handleMessages(e);
+            }
+        }
+    },
+        
+    removeMessageFromArray: function(e) {
+        if (!e) { var e = window.event; }
+        var confirm = window.confirm("Ta bort meddelandet?");
+        var numberID = this.getAttribute("id");
+        var number, index;
+        
+        if (confirm) {
+            index = numberID.search(" ");
+            number = numberID.slice(index+1);
+            MessageBoard.messages.splice(number, 1);
+            
+            MessageBoard.displayMessages();
+        }
+        else {
+            e.preventDefault;
+        }
+    },
+    
     removeMessageFromDisplay: function() {
         var displayZone = document.getElementById("messageDisplay");
         var children = displayZone.getElementsByTagName("div");
@@ -127,30 +173,6 @@ var MessageBoard =  {
                 displayZone.removeChild(children[i - 1]);
             }
         }
-    },
-    
-    removeMessageFromArray: function(e) {
-        if (!e) { var e = window.event; }
-        var confirm = window.confirm("Ta bort meddelandet?");
-        var numberID = this.getAttribute("id");
-        var number, index;
-        
-        if (confirm) {
-            index = numberID.search(" ");
-            number = numberID.slice(index+1);
-            alert(number);
-            alert(MessageBoard.messages.splice(number, 1));
-            
-            MessageBoard.displayMessages();
-        }
-        else {
-            e.preventDefault;
-        }
-    },
-    
-    displayTime: function(e) {
-        if (!e) { var e = window.event; }
-        
     }
 };
 

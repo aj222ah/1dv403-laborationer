@@ -52,7 +52,7 @@ function Message (messageText, date) {
         timeString = hours + ":" + minutes + ":" + seconds;
         
         return timeString;
-    }
+    };
     
 }
 
@@ -61,9 +61,7 @@ Message.prototype.toString = function() {
 };
 
 Message.prototype.getHTMLtext = function() {
-    var tempMessage = this.getText();
-    tempMessage.replace(/\n/g, "<br>");
-    return tempMessage;
+    return this.getText().replace(/[\n\r]/g, "<br />");
 };
 
 
