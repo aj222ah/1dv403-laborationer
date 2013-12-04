@@ -20,7 +20,7 @@ function Message (messageText, date) {
         if(month < 10) {
             month = "0" + month;
         }
-        else if (day < 10) {
+        if (day < 10) {
             day = "0" + day;
         }
         
@@ -42,10 +42,10 @@ function Message (messageText, date) {
         if (hours < 10) {
             hours = "0" + hours;
         }
-        else if (minutes < 10) {
+        if (minutes < 10) {
             minutes = "0" + minutes;
         }
-        else if (seconds < 10) {
+        if (seconds < 10) {
             seconds = "0" + seconds;
         }
         
