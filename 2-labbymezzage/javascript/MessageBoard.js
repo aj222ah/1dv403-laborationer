@@ -3,6 +3,7 @@
 var MessageBoard =  {
     messages: [],
     noOfMessages: 0,
+    counterDisplayCounter: 0,
     
     init: function(e) {
         var sendButton = document.getElementById("sendButton");
@@ -16,16 +17,18 @@ var MessageBoard =  {
         var last = text.lastChild;
         var addition;
         
-        if (MessageBoard.messages.length !== 0) {
+        if (MessageBoard.counterDisplayCounter !== 0) {
             text.removeChild(last);
         }
         
         MessageBoard.noOfMessages = MessageBoard.messages.length;
         addition = document.createTextNode(MessageBoard.noOfMessages);
         text.appendChild(addition);
+        MessageBoard.counterDisplayCounter += 1;
     },
     
     handleMessages: function(e) {
+        if (!e) { var e = window.event; }
         var messageHolder = document.getElementById("newMessage");
         var userInput, createTime;
         createTime = new Date();
@@ -40,13 +43,21 @@ var MessageBoard =  {
     },
         
     displayMessages: function() {
-        var i;
-        if(MessageBoard.messages.length > 0) {
-            MessageBoard.removeMessageFromDisplay();
-        }
+        var i, messageArea, messTimeArray, messDelArray;
+        
+        MessageBoard.removeMessageFromDisplay();
         
         for(i = 0; i < MessageBoard.messages.length; i++) {
             MessageBoard.addMessageToDisplay(i);
+        }
+        
+        messageArea = document.getElementById("messageDisplay");
+        messTimeArray = messageArea.getElementsByClassName("showTime");
+        messDelArray = messageArea.getElementsByClassName("deleteMessage");
+        
+        for (i = 0; i < messTimeArray.length; i++) {
+            messTimeArray[i].addEventListener("click", MessageBoard.displayTime, false);
+            messDelArray[i].addEventListener("click", MessageBoard.removeMessageFromArray, false);
         }
         
         MessageBoard.counterDisplay();
@@ -64,9 +75,10 @@ var MessageBoard =  {
         
         // Taggar för att visa tids-ikon
         messTimeA = document.createElement("a");
-        messTimeA.setAttribute("href", "pics/clock_time.png");
+        messTimeA.setAttribute("href", "#");
         messTimeA.setAttribute("alt", "Klockikon");
         messTimeA.setAttribute("id", "time " + no);
+        messTimeA.setAttribute("class", "showTime");
         messTimeImg = document.createElement("img");
         messTimeImg.setAttribute("src", "pics/clock_time.png");
         messTimeImg.setAttribute("title", "Tidpunkt för meddelande");
@@ -75,9 +87,10 @@ var MessageBoard =  {
         
         // Taggar för att visa delete-ikon
         messDelA = document.createElement("a");
-        messDelA.setAttribute("href", "pics/remove.png");
+        messDelA.setAttribute("href", "#");
         messDelA.setAttribute("alt", "Borttagningsikon");
         messDelA.setAttribute("id", "delete " + no);
+        messDelA.setAttribute("class", "deleteMessage");
         messDelImg = document.createElement("img");
         messDelImg.setAttribute("src", "pics/remove.png");
         messDelImg.setAttribute("title", "Ta bort meddelande");
@@ -114,8 +127,31 @@ var MessageBoard =  {
                 displayZone.removeChild(children[i - 1]);
             }
         }
-    }
+    },
     
+    removeMessageFromArray: function(e) {
+        if (!e) { var e = window.event; }
+        var confirm = window.confirm("Ta bort meddelandet?");
+        var numberID = this.getAttribute("id");
+        var number, index;
+        
+        if (confirm) {
+            index = numberID.search(" ");
+            number = numberID.slice(index+1);
+            alert(number);
+            alert(MessageBoard.messages.splice(number, 1));
+            
+            MessageBoard.displayMessages();
+        }
+        else {
+            e.preventDefault;
+        }
+    },
+    
+    displayTime: function(e) {
+        if (!e) { var e = window.event; }
+        
+    }
 };
 
 
