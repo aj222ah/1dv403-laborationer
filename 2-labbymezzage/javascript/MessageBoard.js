@@ -16,7 +16,8 @@ var MessageBoard =  {
     
     addMessageToDisplay: function (no) {
         var displayZone = document.getElementById("messageDisplay");
-        var messDiv, messP, messPText, messTimeP, messTimePText, messTimeA, messDelA, messTimeImg, messDelImg, messSubstrArr; 
+        var elementAndNodeArr = [], c = 0;
+        var messDiv, messP, messPText, messTimeP, messTimePText, messTimeA, messDelA, messTimeImg, messDelImg, messSubstrArr, i; 
         
         // Div-tag för meddelande och p-tag för utskrift av meddelandetext
         messDiv = document.createElement("div");
@@ -48,12 +49,33 @@ var MessageBoard =  {
         
         messP = document.createElement("p");
         messP.setAttribute("class", "textDisplay");
-        messPText = document.createTextNode(MessageBoard.messages[no].getHTMLtext());
-        
-        // Infoga taggar till föräldra-elementet
         messP.appendChild(messDelA);
         messP.appendChild(messTimeA);
-        messP.appendChild(messPText);
+        
+        if (MessageBoard.messages[no].getHTMLtext().search("<br />") >= 0) {
+            messSubstrArr = MessageBoard.messages[no].getHTMLtext().split("<br />");
+            
+            for (i = 0; i < messSubstrArr.length; i++) {
+                if (messSubstrArr[i].length > 0) {
+                    elementAndNodeArr[c] = document.createTextNode(messSubstrArr[i]);
+                    c++;
+                    elementAndNodeArr[c] = document.createElement("br");
+                    c++;
+                }
+                else {
+                    elementAndNodeArr[c] = document.createElement("br");
+                    c++;
+                }
+            }
+            
+            for (i = 0; i < elementAndNodeArr.length; i++) {
+                messP.appendChild(elementAndNodeArr[i]);
+            }
+        }
+        else {
+            messPText = document.createTextNode(MessageBoard.messages[no].getHTMLtext());
+            messP.appendChild(messPText);
+        }
         
         // Taggar för att visa tid då meddelandet lades till
         messTimeP = document.createElement("p");
