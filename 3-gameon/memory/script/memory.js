@@ -41,14 +41,11 @@ Brick.prototype.flip = function() {
 };
 
 function Memory(rows, cols, placeHolder) {
-    var boardPlacement;
+    var boardPlacement, brickAccessArray, brickRef1, brickRef2;
     var bricks = [];
-    var pairs = 0;
+    var pairs = 0, rounds = 0;
     var noOfPairs = (rows * cols) / 2;
-    var rounds = 0;
     var that = this;
-    var brickAccessArray;
-    var brickRef1, brickRef2;
     
     this.getRows = function() {
         return rows;
@@ -80,8 +77,7 @@ function Memory(rows, cols, placeHolder) {
         var tempBricks = RandomGenerator.getPictureArray(this.getRows(), this.getCols());
         var rowCount = 0, colCount = 0, brickCount = 0;
         var tr = [], td = [], content = [], contentSurround = [];
-        var table, thead, th, text, tbody;
-        var i;
+        var table, thead, th, text, tbody, i;
         
         for (i = 0; i < tempBricks.length; i++) {
             bricks[i] = new Brick(tempBricks[i]);
@@ -134,7 +130,7 @@ function Memory(rows, cols, placeHolder) {
     this.play = function(e) {
         if (!e) { var e = window.event; }
         var classString = this.getAttribute("class");
-        var messageP, messageText, i;
+        var messageP, messageText;
         var identifier = function() {
             var index  = classString.search(" ");
             var brickNo = classString.slice(index + 1);
@@ -185,7 +181,6 @@ function Memory(rows, cols, placeHolder) {
 }
 
 var MemoryApp = {
-    
     init: function() {
       var memoryGame1 = new Memory(3, 4, "game1");
       var memoryGame2 = new Memory(4, 3, "game2");
