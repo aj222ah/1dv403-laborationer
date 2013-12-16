@@ -1,6 +1,6 @@
 "use strict";
 function Brick (value) {
-    var flipped = false;
+    var flipped = "false";
     var back = "pics/0.png";
     var front = "pics/" + value + ".png";
     
@@ -12,11 +12,11 @@ function Brick (value) {
         value = newValue;
     };
     
-    this.getFlipped = function() {
+    this.getStatus = function() {
         return flipped;
     };
     
-    this.setFlipped = function(flip) {
+    this.setStatus = function(flip) {
         flipped = flip;
     };
     
@@ -27,25 +27,28 @@ function Brick (value) {
     this.getFront = function() {
         return front;
     };
-    
-    
-    Brick.prototype.flip = function() {
-        if (this.getFlipped === true) {
-            this.setFlipped(false);
-            return this.getBack();
-        }
-        else {
-            this.setFlipped(true);
-            return this.getFront();
-        }
-        
-    };
 }
+Brick.prototype.flip = function() {
+    if (this.getStatus() === "true") {
+        this.setStatus("false");
+        return this.getBack();
+    }
+    else {
+        this.setStatus("true");
+        return this.getFront();
+    }
+        
+};
 
 function Memory(rows, cols, placeHolder) {
+    var boardPlacement;
     var bricks = [];
+    var pairs = 0;
+    var noOfPairs = (rows * cols) / 2;
+    var rounds = 0;
     var that = this;
     var brickAccessArray;
+    var brickRef1, brickRef2;
     
     this.getRows = function() {
         return rows;
@@ -71,8 +74,9 @@ function Memory(rows, cols, placeHolder) {
         placeHolder = id;
     };
     
+    boardPlacement = document.getElementById(this.getPlaceHolder());
+    
     this.start = function() {
-        var boardPlacement = document.getElementById(this.getPlaceHolder());
         var tempBricks = RandomGenerator.getPictureArray(this.getRows(), this.getCols());
         var rowCount = 0, colCount = 0, brickCount = 0;
         var tr = [], td = [], content = [], contentSurround = [];
@@ -88,7 +92,7 @@ function Memory(rows, cols, placeHolder) {
         table.setAttribute("cols", this.getCols());
         thead = document.createElement("thead");
         th = document.createElement("th");
-        th.setAttribute("colspan", "4");
+        th.setAttribute("colspan", this.getCols());
         text = document.createTextNode("Memory");
         th.appendChild(text);
         thead.appendChild(th);
@@ -120,7 +124,7 @@ function Memory(rows, cols, placeHolder) {
         table.appendChild(tbody);
         boardPlacement.appendChild(table);
         
-        brickAccessArray  = document.getElementsByClassName("brickAccessArray");
+        brickAccessArray  = boardPlacement.getElementsByClassName("brickAccessArray");
         
         for(i = 0; i < brickAccessArray.length; i++) {
             brickAccessArray[i].addEventListener("click", this.play, false);
@@ -128,17 +132,65 @@ function Memory(rows, cols, placeHolder) {
     };
     
     this.play = function(e) {
+        if (!e) { var e = window.event; }
+        var classString = this.getAttribute("class");
+        var messageP, messageText, i;
+        var identifier = function() {
+            var index  = classString.search(" ");
+            var brickNo = classString.slice(index + 1);
+            return brickNo;
+        }();
+        var flippedCount = (function() {
+            var temp  = 0, i;
+            for (i = 0; i < bricks.length; i++) {
+                if (bricks[i].getStatus() === "true") {
+                    temp += 1;
+                }
+            }
+            return temp;
+        })();
         
+        if (flippedCount === 0) {
+            brickRef1 = identifier;
+            this.firstChild.setAttribute("src", bricks[brickRef1].flip());
+            brickAccessArray[brickRef1].removeEventListener("click", that.play, false);
+        }
+        else if (flippedCount === 1) {
+            brickRef2 = identifier;
+            this.firstChild.setAttribute("src", bricks[brickRef2].flip());
+            if (bricks[brickRef1].getValue() === bricks[brickRef2].getValue()) {
+                bricks[brickRef1].setStatus("match");
+                bricks[brickRef2].setStatus("match");
+                brickAccessArray[brickRef2].removeEventListener("click", that.play, false);
+                pairs += 1;
+                rounds += 1;
+                if (pairs === noOfPairs) {
+                    messageP = document.createElement("p");
+                    messageText = document.createTextNode("Grattis! Det tog dig " + rounds + " omgångar att klara memoryt.");
+                    messageP.appendChild(messageText);
+                    boardPlacement.appendChild(messageP);
+                }
+            }
+            else {
+                setTimeout(function() {
+                    brickAccessArray[brickRef1].firstChild.setAttribute("src", bricks[brickRef1].flip());
+                    brickAccessArray[brickRef2].firstChild.setAttribute("src", bricks[brickRef2].flip());
+                    brickAccessArray[brickRef1].addEventListener("click", that.play, false);
+                    brickAccessArray[brickRef2].addEventListener("click", that.play, false);
+                }, 1000);
+                rounds += 1;
+            }
+        }
     };
 }
-
-
 
 var MemoryApp = {
     
     init: function() {
       var memoryGame1 = new Memory(3, 4, "game1");
+      var memoryGame2 = new Memory(4, 3, "game2");
       memoryGame1.start();
+      memoryGame2.start();
     },
 };
 
