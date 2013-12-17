@@ -18,20 +18,15 @@ function notEmptyValidation(e) {
     var current = document.getElementById(this.getAttribute("id"));
     var currentID = current.getAttribute("id");
     var regExpEmptyString = /^$/;
-    var warningP, warningText;
+    var errorMessage;
     
     if (current.getAttribute("class") === "warningDisplay") {
         removeWarning(current, currentID);
     }
     
     if(input.match(regExpEmptyString)) {
-        warningP = document.createElement("p");
-        warningText = document.createTextNode("Detta fält får inte vara tomt");
-        warningP.appendChild(warningText);
-        warningP.setAttribute("class", "warning");
-        warningP.setAttribute("id", currentID + "Warning");
-        current.setAttribute("class", "warningDisplay");
-        current.parentNode.insertBefore(warningP, current.nextSibling);
+        errorMessage = "Detta fält får inte vara tomt";
+        addMessage(current, currentID, errorMessage);
     }
 }
 
@@ -66,20 +61,15 @@ function invalidEmail(e) {
     var current = document.getElementById(this.getAttribute("id"));
     var currentID = current.getAttribute("id");
     var regExpEmail = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;  //  /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-    var warningP, warningText;
+    var errorMessage;
     
     if (current.getAttribute("class") === "warningDisplay") {
         removeWarning(current, currentID);
     }
     
     if(!input.match(regExpEmail)) {
-        warningP = document.createElement("p");
-        warningText = document.createTextNode("Du har angivit en inkorrekt e-postadress");
-        warningP.appendChild(warningText);
-        warningP.setAttribute("class", "warning");
-        warningP.setAttribute("id", currentID + "Warning");
-        current.setAttribute("class", "warningDisplay");
-        current.parentNode.insertBefore(warningP, current.nextSibling);
+        errorMessage = "Du har angivit en inkorrekt e-postadress";
+        addMessage(current, currentID, errorMessage);
     }
 }
 
@@ -87,6 +77,17 @@ function removeWarning(current, currentID) {
     var removable = document.getElementById(currentID + "Warning");
     removable.parentNode.removeChild(removable);
     current.removeAttribute("class");
+}
+
+function addMessage(current, currentID, messageText) {
+    var warningP, warningText;
+    warningP = document.createElement("p");
+    warningText = document.createTextNode(messageText);
+    warningP.appendChild(warningText);
+    warningP.setAttribute("class", "warning");
+    warningP.setAttribute("id", currentID + "Warning");
+    current.setAttribute("class", "warningDisplay");
+    current.parentNode.insertBefore(warningP, current.nextSibling);
 }
 
 window.addEventListener("load", initialize, false);
