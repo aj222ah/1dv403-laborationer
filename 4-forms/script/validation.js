@@ -6,13 +6,13 @@ function initialize() {
     var zipCode = document.getElementById("zipCode");
     var email = document.getElementById("email");
     
-    firstName.addEventListener("blur", notEmptyValidation, false);
-    lastName.addEventListener("blur", notEmptyValidation, false);
-    zipCode.addEventListener("blur", invalidZipCode, false);
-    email.addEventListener("blur", invalidEmail, false);
+    firstName.addEventListener("blur", checkIfEmpty, false);
+    lastName.addEventListener("blur", checkIfEmpty, false);
+    zipCode.addEventListener("blur", checkValidZipCode, false);
+    email.addEventListener("blur", checkValidEmail, false);
 }
 
-function notEmptyValidation(e) {
+function checkIfEmpty(e) {
     if (!e) { var e = window.event; }
     var input = this.value;
     var current = document.getElementById(this.getAttribute("id"));
@@ -25,42 +25,53 @@ function notEmptyValidation(e) {
     }
     
     if(input.match(regExpEmptyString)) {
-        errorMessage = "Detta fält får inte vara tomt";
+        errorMessage = "Detta fält får inte vara tomt.";
         addMessage(current, currentID, errorMessage);
     }
 }
 
-function invalidZipCode(e) {
+function checkValidZipCode(e) {
     if (!e) { var e = window.event; }
-    var input = this.value;
+    var input = this.value.trim();
     var current = document.getElementById(this.getAttribute("id"));
     var currentID = current.getAttribute("id");
-    var regExpZipCode = /^\d{5}$/;
-    var warningP, warningText, removable;
+    var regExpZipCode = /^\d{5}$/; // Matchar 5 siffror
+    var regExpDigits = /^\d{3}\s?-?\d{2}$/; // Matchar 3 siffror, mellanslag eller bindestreck och sedan 2 siffror
+    var regExpSE = /^SE\s?/i; // Matchar SE eller se endera följt av ett eventuellt mellanslag
+    var errorMessage;
     
     if (current.getAttribute("class") === "warningDisplay") {
-        current.removeAttribute("class");
-        removable = document.getElementById(currentID + "Warning");
-        removable.parentNode.removeChild(removable);
+        removeWarning(current, currentID);
+    }
+    
+    if(input.match(regExpSE)) {
+        input = input.replace(regExpSE, "");
+    }
+    
+    if(input.match(regExpDigits)) {
+        if(input.search(" ")) {
+            input = input.replace(" ", "");
+        }
+        if (input.search("-")) {
+            input = input.replace("-", "");
+        }
     }
     
     if(!input.match(regExpZipCode)) {
-        warningP = document.createElement("p");
-        warningText = document.createTextNode("Postnumret är inkorrekt angivet");
-        warningP.appendChild(warningText);
-        warningP.setAttribute("class", "warning");
-        warningP.setAttribute("id", currentID + "Warning");
-        current.setAttribute("class", "warningDisplay");
-        current.parentNode.insertBefore(warningP, current.nextSibling);
+        errorMessage = "Postnumret är inkorrekt angivet. Använd formen: 12345";
+        addMessage(current, currentID, errorMessage);
+    }
+    else {
+        this.value = input; //current.setAttribute("value", input);
     }
 }
 
-function invalidEmail(e) {
+function checkValidEmail(e) {
     if (!e) { var e = window.event; }
     var input = this.value;
     var current = document.getElementById(this.getAttribute("id"));
     var currentID = current.getAttribute("id");
-    var regExpEmail = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;  //  /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+    var regExpEmail = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
     var errorMessage;
     
     if (current.getAttribute("class") === "warningDisplay") {
@@ -68,7 +79,7 @@ function invalidEmail(e) {
     }
     
     if(!input.match(regExpEmail)) {
-        errorMessage = "Du har angivit en inkorrekt e-postadress";
+        errorMessage = "Du har angivit en inkorrekt e-postadress.";
         addMessage(current, currentID, errorMessage);
     }
 }
