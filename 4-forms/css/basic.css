@@ -97,3 +97,15 @@ input, select {
 #submit {
 	margin-top: 5px;
 }
+
+.warning {
+    color: red;
+    font-weight: bold;
+    display: inline;
+    padding-left: 10px;
+}
+
+.warningDisplay {
+    display: inline;
+    border: 2px solid red;
+}
