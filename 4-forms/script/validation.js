@@ -105,17 +105,27 @@ function addMessage(current, currentID, messageText) {
 
 function confirmInfo(e) {
     if (!e) { var e = window.event; }
+    var form = document.getElementById("validationForm");
     var overlay = document.getElementById("overlay");
     var popup = document.getElementById("popup");
     var labels = document.getElementsByTagName("label");
     var inputValues = document.getElementsByTagName("input");
     var selectValues = document.getElementsByTagName("select");
     var h1, h1Text, p = [], pText = [], submitButton, submitButtonText, abortButton, abortButtonText, i = 0, x = 0, warning;
+    var elementArray = [];
     
     warning = document.getElementsByClassName("warning");
     if(warning.length >= 1) {
         e.preventDefault();
         return false;
+    }
+    
+    if (form.getAttribute("class") === "revalidate") {
+        elementArray = popup.querySelectorAll("*");
+        
+        for(i = elementArray.length - 1; i >= 0; i--) {
+            elementArray[i].parentNode.removeChild(elementArray[i]);
+        }
     }
     
     h1 = document.createElement("h1");
@@ -168,6 +178,7 @@ function confirmInfo(e) {
 
 function checkConfimation(e) {
     if (!e) { var e = window.event; }
+    var form = document.getElementById("validationForm");
     var submit = document.getElementById("submit");
     var overlay = document.getElementById("overlay");
     var popup = document.getElementById("popup");
@@ -189,6 +200,7 @@ function checkConfimation(e) {
         popup.removeAttribute("class");
         overlay.removeAttribute("class");
         popup.setAttribute("class", "hide");
+        form.setAttribute("class", "revalidate");
     }
 }
 window.addEventListener("load", initialize, false);
