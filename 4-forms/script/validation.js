@@ -5,11 +5,13 @@ function initialize() {
     var lastName = document.getElementById("lastName");
     var zipCode = document.getElementById("zipCode");
     var email = document.getElementById("email");
+    var submit = document.getElementById("submit");
     
     firstName.addEventListener("blur", checkIfEmpty, false);
     lastName.addEventListener("blur", checkIfEmpty, false);
     zipCode.addEventListener("blur", checkValidZipCode, false);
     email.addEventListener("blur", checkValidEmail, false);
+    submit.addEventListener("click", confirmInfo, false);
 }
 
 function checkIfEmpty(e) {
@@ -62,7 +64,7 @@ function checkValidZipCode(e) {
         addMessage(current, currentID, errorMessage);
     }
     else {
-        this.value = input; //current.setAttribute("value", input);
+        this.value = input;
     }
 }
 
@@ -99,6 +101,53 @@ function addMessage(current, currentID, messageText) {
     warningP.setAttribute("id", currentID + "Warning");
     current.setAttribute("class", "warningDisplay");
     current.parentNode.insertBefore(warningP, current.nextSibling);
+}
+
+function confirmInfo(e) {
+    if (!e) { var e = window.event; }
+    var body = document.getElementsByTagName("body");
+    var popup = document.getElementById("popup");
+    var labels = document.getElementsByTagName("label") // anv labels[i].firstChild.nodeValue för att få ut texten
+    var inputValues = document.getElementsByTagName("input");
+    var selectValues = document.getElementsByTagName("select");
+    var h1, h1Text, p = [], pText = [], submitButton, abortButton, i = 0, x = 0;
+    
+    h1 = document.createElement("h1");
+    h1Text = document.createTextNode("Vänligen bekräfta ditt köp");
+    h1.appendChild(h1Text);
+    popup.appendChild(h1);
+    
+    for(i = 0; i < (inputValues.length - 1); i++) {
+        p[i] = document.createElement("p");
+        pText[i] = document.createTextNode(labels[i].firstChild.nodeValue + " " + inputValues[i].value);
+    }
+    
+    for(x = 0; x < selectValues.length; x++) {
+        p[i] = document.createElement("p");
+        pText[i] = document.createTextNode(labels[i].firstChild.nodeValue + " " + selectValues[x].options[document.getElementById("paymentModel").selectedIndex].text);
+        i += 1;
+    }
+    
+    for(i = 0; i < p.length; i++) {
+        p[i].appendChild(pText[i]);
+        popup.appendChild(p[i]);
+    }
+    
+    submitButton = document.createElement("button");
+    submitButton.setAttribute("value", "Bekräfta ditt köp");
+    submitButton.setAttribute("id", "submit2");
+    abortButton = document.createElement("button");
+    abortButton.setAttribute("value", "Avbryt");
+    abortButton.setAttribute("id", "abort");
+    
+    popup.appendChild(submitButton);
+    popup.appendChild(abortButton);
+    popup.removeAttribute("class");
+    //body.setAttribute("class", "overlayEffect");
+    popup.setAttribute("class", "popupDisplay");
+    
+    
+    e.preventDefault();
 }
 
 window.addEventListener("load", initialize, false);
