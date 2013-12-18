@@ -7,28 +7,30 @@
 	</head>
 	<body>
 	    <main>
-            <section id="popup" class="hide"></section>
-    		<form method="post" action="http://voyager.lnu.se/tekinet/kurser/dtt/wp_webbteknik/process_form.php" id="validationForm">
-                <fieldset>
-                    <legend>Fyll i din betalningsplan</legend>
-                    <label for="firstName">Förnamn:</label>
-                    <input type="text" name="firstName" id="firstName">
-                    <label for="lastName">Efternamn:</label>
-                    <input type="text" name="lastName" id="lastName">
-                    <label for="zipCode">Postnummer:</label>
-                    <input type="text" name="zipCode" id="zipCode">
-                    <label for="email">E-post:</label>
-                    <input type="email" name="email" id="email">
-                    <label for="paymentModel">Prismodell:</label>
-                    <select id="paymentModel">
-                        <option value="low">Låg</option>
-                        <option value="medium">Mellan</option>
-                        <option value="high">Hög</option>
-                    </select>
-                    <label for="submit" class="hide">Genomför köp:</label>
-                    <input type="submit" name="submit" value="Genomför köp" id="submit" >
-                </fieldset>
-            </form>
+            <div id="overlay">
+                <div id="popup" class="hide"></div>
+        		<form method="post" action="http://voyager.lnu.se/tekinet/kurser/dtt/wp_webbteknik/process_form.php" id="validationForm">
+                    <fieldset>
+                        <legend>Fyll i din betalningsplan</legend>
+                        <label for="firstName">Förnamn:</label>
+                        <input type="text" name="firstName" id="firstName">
+                        <label for="lastName">Efternamn:</label>
+                        <input type="text" name="lastName" id="lastName">
+                        <label for="zipCode">Postnummer:</label>
+                        <input type="text" name="zipCode" id="zipCode">
+                        <label for="email">E-post:</label>
+                        <input type="email" name="email" id="email">
+                        <label for="paymentModel">Prismodell:</label>
+                        <select id="paymentModel">
+                            <option value="low">Låg</option>
+                            <option value="medium">Mellan</option>
+                            <option value="high">Hög</option>
+                        </select>
+                        <label for="submit" class="hide">Genomför köp:</label>
+                        <input type="submit" name="submit" value="Genomför köp" id="submit" >
+                    </fieldset>
+                </form>
+            </div>
         </main>
         <script src="script/validation.js"></script>
 	</body>	

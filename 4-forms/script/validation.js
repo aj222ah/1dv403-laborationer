@@ -105,12 +105,18 @@ function addMessage(current, currentID, messageText) {
 
 function confirmInfo(e) {
     if (!e) { var e = window.event; }
-    var body = document.getElementsByTagName("body");
+    var overlay = document.getElementById("overlay");
     var popup = document.getElementById("popup");
-    var labels = document.getElementsByTagName("label") // anv labels[i].firstChild.nodeValue för att få ut texten
+    var labels = document.getElementsByTagName("label");
     var inputValues = document.getElementsByTagName("input");
     var selectValues = document.getElementsByTagName("select");
-    var h1, h1Text, p = [], pText = [], submitButton, abortButton, i = 0, x = 0;
+    var h1, h1Text, p = [], pText = [], submitButton, submitButtonText, abortButton, abortButtonText, i = 0, x = 0, warning;
+    
+    warning = document.getElementsByClassName("warning");
+    if(warning.length >= 1) {
+        e.preventDefault();
+        return false;
+    }
     
     h1 = document.createElement("h1");
     h1Text = document.createTextNode("Vänligen bekräfta ditt köp");
@@ -134,20 +140,55 @@ function confirmInfo(e) {
     }
     
     submitButton = document.createElement("button");
-    submitButton.setAttribute("value", "Bekräfta ditt köp");
-    submitButton.setAttribute("id", "submit2");
+    submitButtonText = document.createTextNode("Bekräfta ditt köp");
+    submitButton.setAttribute("id", "confirm");
+    submitButton.appendChild(submitButtonText);
     abortButton = document.createElement("button");
-    abortButton.setAttribute("value", "Avbryt");
+    abortButtonText = document.createTextNode("Avbryt");
     abortButton.setAttribute("id", "abort");
+    abortButton.appendChild(abortButtonText);
     
     popup.appendChild(submitButton);
     popup.appendChild(abortButton);
     popup.removeAttribute("class");
-    //body.setAttribute("class", "overlayEffect");
+    overlay.setAttribute("class", "overlayEffect");
     popup.setAttribute("class", "popupDisplay");
+    for(i = 0; i < inputValues.length; i++) {
+        inputValues[i].setAttribute("disabled", "disabled");
+    }
+    for(i = 0; i < selectValues.length; i++) {
+        selectValues[i].setAttribute("disabled", "disabled");
+    }
     
+    submitButton.addEventListener("click", checkConfimation, false);
+    abortButton.addEventListener("click", checkConfimation, false);
     
     e.preventDefault();
 }
 
+function checkConfimation(e) {
+    if (!e) { var e = window.event; }
+    var submit = document.getElementById("submit");
+    var overlay = document.getElementById("overlay");
+    var popup = document.getElementById("popup");
+    var inputValues = document.getElementsByTagName("input");
+    var selectValues = document.getElementsByTagName("select");
+    var i = 0;
+    for(i = 0; i < inputValues.length; i++) {
+        inputValues[i].removeAttribute("disabled");
+    }
+    for(i = 0; i < selectValues.length; i++) {
+        selectValues[i].removeAttribute("disabled");
+    }
+    
+    if(this.id === "confirm") {
+        submit.removeEventListener("click", confirmInfo, false);
+        submit.click();
+    }
+    else {
+        popup.removeAttribute("class");
+        overlay.removeAttribute("class");
+        popup.setAttribute("class", "hide");
+    }
+}
 window.addEventListener("load", initialize, false);
