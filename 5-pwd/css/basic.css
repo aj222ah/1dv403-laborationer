@@ -49,6 +49,29 @@ table {
 	border-spacing: 0;
 }
 
+
 body {
-    background-image: url("images/teal_parchment_paper_background_1800x1600.jpg");
+    background-image: url("images/green_parchment_paper_wallpaper_texture_seamless.jpg");
+}
+
+nav {
+    height: 136px;
+    background-image: url("images/green_parchment_paper_background_1800x1600.jpg");
+    background-repeat: repeat-x;
+}
+
+nav ul {
+    margin-left: 100px;
+}
+
+nav li {
+    display: inline;
+}
+
+nav a, nav img {
+    padding: 10px;
+}
+
+nav img {
+    margin-top: 10px;
 }
