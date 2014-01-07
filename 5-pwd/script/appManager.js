@@ -1,5 +1,6 @@
 "use strict";
 var ADAJAWM = ADAJAWM || {};
+ADAJAWM.windows = ADAJAWM.windows || {};
 
 ADAJAWM.WindowConstructor = function WindowConstructor(id, width, height, left, upper) {
     
@@ -52,7 +53,7 @@ ADAJAWM.ImageViewerWindow = function(e) {
 };
 
 ADAJAWM.MemoryWindow = function(e) {
-    alert("Hopp!");
+    window.open("memory/memoryPlayer.html", "Memory", "width=560,height=440px,scrollable=no");
 };
 
 ADAJAWM.RSSWindow = function(e) {

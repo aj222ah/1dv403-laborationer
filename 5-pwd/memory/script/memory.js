@@ -1,4 +1,9 @@
 "use strict";
+var ADAJAWM = ADAJAWM || {};
+ADAJAWM.windows = ADAJAWM.windows || {};
+ADAJAWM.memory = ADAJAWM.memory || {};
+
+
 function Brick (value) {
     var flipped = "false";
     var back = "../images/memory/0.png";
