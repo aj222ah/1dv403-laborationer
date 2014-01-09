@@ -4,7 +4,7 @@ ADAJAWM.windows = ADAJAWM.windows || {};
 ADAJAWM.memory = ADAJAWM.memory || {};
 
 
-function Brick (value) {
+ADAJAWM.memory.Brick = function Brick (value) {
     var flipped = "false";
     var back = "../images/memory/0.png";
     var front = "../images/memory/" + value + ".png";
@@ -32,8 +32,9 @@ function Brick (value) {
     this.getFront = function() {
         return front;
     };
-}
-Brick.prototype.flip = function() {
+};
+
+ADAJAWM.memory.Brick.prototype.flip = function() {
     if (this.getStatus() === "true") {
         this.setStatus("false");
         return this.getBack();
@@ -45,7 +46,7 @@ Brick.prototype.flip = function() {
         
 };
 
-function Memory(rows, cols, placeHolder) {
+ADAJAWM.memory.Memory = function Memory(rows, cols, placeHolder) {
     var boardPlacement, brickAccessArray, brickRef1, brickRef2;
     var bricks = [];
     var pairs = 0, rounds = 0;
@@ -85,7 +86,7 @@ function Memory(rows, cols, placeHolder) {
         var table, tbody, i;
         
         for (i = 0; i < tempBricks.length; i++) {
-            bricks[i] = new Brick(tempBricks[i]);
+            bricks[i] = new ADAJAWM.memory.Brick(tempBricks[i]);
         }
         
         table = document.createElement("table");
@@ -176,13 +177,13 @@ function Memory(rows, cols, placeHolder) {
             }
         }
     };
-}
+};
 
-var MemoryApp = {
+ADAJAWM.memory.MemoryApp = {
     init: function() {
-      var memoryGame1 = new Memory(4, 6, "game1");
+      var memoryGame1 = new ADAJAWM.memory.Memory(4, 6, "game1");
       memoryGame1.start();
     },
 };
 
-window.addEventListener("load", MemoryApp.init, false);
+window.addEventListener("load", ADAJAWM.memory.MemoryApp.init, false);

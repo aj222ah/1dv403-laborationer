@@ -1,73 +1,72 @@
 "use strict";
 var ADAJAWM = ADAJAWM || {};
 ADAJAWM.windows = ADAJAWM.windows || {};
-
-ADAJAWM.WindowConstructor = function WindowConstructor(id, width, height, left, upper) {
-    
-    this.getId = function() {
-        return id;
-    };
-  
-    this.setId = function(ownId) {
-        id = ownId;
-    };
-    
-    this.getWidth = function() {
-        return width;
-    };
-  
-    this.setWidth = function(ownWidth) {
-        width = ownWidth;
-    };
-  
-    this.getHeigth = function() {
-        return height;
-    };
-  
-    this.setHeigth = function(ownHeight) {
-        height = ownHeight;
-    };
-  
-    this.getLeft = function() {
-        return left;
-    };
-  
-    this.setLeft = function(ownLeft) {
-        left = ownLeft;
-    };
-    
-    this.getUpper = function() {
-        return upper;
-    };
-  
-    this.setUpper = function(ownUpper) {
-        upper = ownUpper;
-    };
-};
 /*
-ADAJAWM.Window = function() {
-};*/
-
-ADAJAWM.ImageViewerWindow = function(e) {
-    alert("Hej!");
+ADAJAWM.windows.BasicWindow = function BasicWindow() {
+    var resize = "no";
+    var resizeString = "resize=";
+    
+    this.getResizeString = function() {
+        return resizeString + resize;
+    };
+    
+    this.setResize = function(resizable) {
+        resize = resizable;
+    };
 };
 
-ADAJAWM.MemoryWindow = function(e) {
-    window.open("memory/memoryPlayer.html", "Memory", "width=560,height=440px,scrollable=no");
+ADAJAWM.windows.BasicWindow.prototype.getResizeString = function() {
+    return ADAJAWM.windows.BasicWindow.getResizeString();
 };
 
-ADAJAWM.RSSWindow = function(e) {
-    alert("Tomtesnopp!");
+ADAJAWM.windows.BasicWindow.prototype.openNew = function(address, windowName, attr) {
+    window.open(address, name, attr);
 };
 
-ADAJAWM.AppManager = function() {
+ADAJAWM.windows.ImageViewerWindow = function ImageViewerWindow() {
+    var height = 500;
+    var width = 650;
+    
+    this.getHeightString = function() {
+        return "height=" + height + "px,";
+    };
+    
+    this.getWidthString = function() {
+        return "width=" + width + "px,";
+    };
+};
+
+ADAJAWM.windows.ImageViewerWindow = new ADAJAWM.windows.BasicWindow();
+*/
+ADAJAWM.AppManager = {
+    windowArray : [],
+    windowCounter : 0,
+    
+    init: function() {
         var picIcon = document.getElementById("imageIcon");
         var gameIcon = document.getElementById("gamesIcon");
         var newsIcon = document.getElementById("rssIcon");
         
-        picIcon.addEventListener("click", ADAJAWM.ImageViewerWindow, false);
-        gameIcon.addEventListener("click", ADAJAWM.MemoryWindow, false);
-        newsIcon.addEventListener("click", ADAJAWM.RSSWindow, false);
+        picIcon.addEventListener("click", ADAJAWM.AppManager.imageViewerWindow, false);
+        gameIcon.addEventListener("click", ADAJAWM.AppManager.memoryWindow, false);
+        newsIcon.addEventListener("click", ADAJAWM.AppManager.rssWindow, false);
+        
+    },
+    
+    imageViewerWindow : function(e) {
+        alert("Hej!");
+    },
+    
+    memoryWindow : function(e) {
+        var windowName = "Memory" + ADAJAWM.AppManager.windowCounter;
+        ADAJAWM.AppManager.windowArray[ADAJAWM.AppManager.windowCounter] = window.open("memory/memoryPlayer.html", windowName, "width=560,height=440px,scrollable=no");
+        ADAJAWM.AppManager.windowCounter += 1;
+    },
+    
+    rssWindow : function(e) {
+        alert("Tomtesnopp!");
+    },
+     
 };
 
-window.addEventListener("load", ADAJAWM.AppManager, false);
+window.addEventListener("load", ADAJAWM.AppManager.init, false);
