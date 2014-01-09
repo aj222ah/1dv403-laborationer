@@ -20,7 +20,7 @@ ADAJAWM.windows.BasicWindow.prototype.getResizeString = function() {
 };
 
 ADAJAWM.windows.BasicWindow.prototype.openNew = function(address, windowName, attr) {
-    window.open(address, name, attr);
+    window.open(address, windowName, attr);
 };
 
 ADAJAWM.windows.ImageViewerWindow = function ImageViewerWindow() {
@@ -37,34 +37,71 @@ ADAJAWM.windows.ImageViewerWindow = function ImageViewerWindow() {
 };
 
 ADAJAWM.windows.ImageViewerWindow = new ADAJAWM.windows.BasicWindow();
+
+ADAJAWM.windows.MemoryGameWindow = function MemoryGameWindow() {
+    var height = 440;
+    var width = 560;
+    
+    this.getHeightString = function() {
+        return "height=" + height + "px,";
+    };
+    
+    this.getWidthString = function() {
+        return "width=" + width + "px,";
+    };
+};
+
+ADAJAWM.windows.MemoryGameWindow = new ADAJAWM.windows.BasicWindow();
+
+ADAJAWM.windows.RSSFeedWindow = function RSSFeedWindow() {
+    var height = 440;
+    var width = 560;
+    
+    this.getHeightString = function() {
+        return "height=" + height + "px,";
+    };
+    
+    this.getWidthString = function() {
+        return "width=" + width + "px,";
+    };
+};
+
+ADAJAWM.windows.RSSFeedWindow = new ADAJAWM.windows.BasicWindow();
 */
 ADAJAWM.AppManager = {
     windowArray : [],
     windowCounter : 0,
+    imageWebpage : "..pages/imageViewer.html",
+    memoryWebpage : "../memory/memoryPlayer.html",
+    rssWebpage : "..pages/newsPage.html",
     
     init: function() {
         var picIcon = document.getElementById("imageIcon");
         var gameIcon = document.getElementById("gamesIcon");
         var newsIcon = document.getElementById("rssIcon");
         
-        picIcon.addEventListener("click", ADAJAWM.AppManager.imageViewerWindow, false);
-        gameIcon.addEventListener("click", ADAJAWM.AppManager.memoryWindow, false);
-        newsIcon.addEventListener("click", ADAJAWM.AppManager.rssWindow, false);
+        picIcon.addEventListener("click", ADAJAWM.AppManager.openImageViewerWindow, false);
+        gameIcon.addEventListener("click", ADAJAWM.AppManager.openMemoryWindow, false);
+        newsIcon.addEventListener("click", ADAJAWM.AppManager.openRssWindow, false);
         
     },
     
-    imageViewerWindow : function(e) {
-        alert("Hej!");
-    },
-    
-    memoryWindow : function(e) {
-        var windowName = "Memory" + ADAJAWM.AppManager.windowCounter;
-        ADAJAWM.AppManager.windowArray[ADAJAWM.AppManager.windowCounter] = window.open("memory/memoryPlayer.html", windowName, "width=560,height=440px,scrollable=no");
+    openImageViewerWindow : function(e) {
+        var windowName = "ImageViewer" + ADAJAWM.AppManager.windowCounter;
+        ADAJAWM.AppManager.windowArray[ADAJAWM.AppManager.windowCounter] = window.open(ADAJAWM.AppManager.imageWebpage, windowName, "width=560,height=600px,scrollable=no");
         ADAJAWM.AppManager.windowCounter += 1;
     },
     
-    rssWindow : function(e) {
-        alert("Tomtesnopp!");
+    openMemoryWindow : function(e) {
+        var windowName = "Memory" + ADAJAWM.AppManager.windowCounter;
+        ADAJAWM.AppManager.windowArray[ADAJAWM.AppManager.windowCounter] = window.open(ADAJAWM.AppManager.memoryWebpage, windowName, "width=560,height=440px,scrollable=no");
+        ADAJAWM.AppManager.windowCounter += 1;
+    },
+    
+    openRssWindow : function(e) {
+        var windowName = "RssFeed" + ADAJAWM.AppManager.windowCounter;
+        ADAJAWM.AppManager.windowArray[ADAJAWM.AppManager.windowCounter] = window.open(ADAJAWM.AppManager.rssWebpage, windowName, "width=400,height=600px,scrollable=no");
+        ADAJAWM.AppManager.windowCounter += 1;
     },
      
 };
