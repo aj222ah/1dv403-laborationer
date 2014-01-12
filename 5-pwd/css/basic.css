@@ -134,3 +134,24 @@ nav img {
     float: left;
     text-decoration: none;
 }
+
+#waitMessage {
+    width: 150px;
+    height: 100px;
+    background-color: white;
+    display: block;
+    padding: 20px;
+    margin-top: 25px;
+    margin-left: 100px;
+}
+
+#waitMessage p {
+    font-family: Georgia;
+    font-size: 14pt;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+#waitMessage .hidden {
+    display: none;
+}

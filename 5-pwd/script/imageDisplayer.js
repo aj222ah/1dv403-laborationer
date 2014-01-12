@@ -10,6 +10,9 @@ ADAJAWM.pages.MyImagesApp = {
         var i, aList, widthString, heightString;
         var imageLink, imageTag, thumbWidth = 0, thumbHeight = 0;
         var placement = document.getElementById("displayArea");
+        var waitMessage = document.getElementById("waitMessage");
+        
+        waitMessage.parentNode.removeChild(waitMessage);
         
         ADAJAWM.pages.MyImagesApp.images = JSON.parse(picArray);
         
@@ -57,11 +60,15 @@ ADAJAWM.pages.MyImagesApp = {
     },
     
     init: function() {
+        var placeHolderWait;
         var url = "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/";
         new AjaxCon(url, ADAJAWM.pages.MyImagesApp.imageHandler);
+        
+        window.setTimeOut(function() {
+            placeHolderWait = document.getElementById("displayArea");
+            placeHolderWait.removeAttribute("class");
+        }, 1000);
     },
-    
-    
 };
 
 window.addEventListener("load", ADAJAWM.pages.MyImagesApp.init, false);
