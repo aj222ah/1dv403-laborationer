@@ -49,13 +49,15 @@ table {
 	border-spacing: 0;
 }
 
+body, #desktop {
+    background-image: url("images/green_parchment_paper_wallpaper_texture_seamless.jpg");
+}
 
-body {
+#startPage {
     background-color: black;
 }
 
 #desktop {
-    background-image: url("images/green_parchment_paper_wallpaper_texture_seamless.jpg");
     width: 1200px;
     height: 700px;
     margin: 0 auto;
@@ -82,10 +84,6 @@ nav a, nav img {
 
 nav img {
     margin-top: 10px;
-}
-
-#memBody {
-    background-image: url("images/green_parchment_paper_wallpaper_texture_seamless.jpg");
 }
 
 #memBody main {
@@ -121,4 +119,18 @@ nav img {
     padding: 10px;
     background-color: white;
     text-align: center;
+}
+
+#displayArea img {
+    display: block;
+    margin: 0 auto;
+}
+
+#displayArea a {
+    background-color: rgb(255, 225, 196);
+    padding: 5px;
+    margin: 10px;
+    display: block;
+    float: left;
+    text-decoration: none;
 }
