@@ -49,12 +49,12 @@ table {
 	border-spacing: 0;
 }
 
-body, #desktop {
-    background-image: url("images/green_parchment_paper_wallpaper_texture_seamless.jpg");
+body {
+    background-color: black;
 }
 
-#startPage {
-    background-color: black;
+#desktop, #displayBody, #memBody, #newsBody {
+    background-image: url("images/green_parchment_paper_wallpaper_texture_seamless.jpg");
 }
 
 #desktop {

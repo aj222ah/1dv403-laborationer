@@ -71,9 +71,9 @@ ADAJAWM.windows.RSSFeedWindow = new ADAJAWM.windows.BasicWindow();
 ADAJAWM.AppManager = {
     windowArray : [],
     windowCounter : 0,
-    imageWebpage : "..pages/imageViewer.html",
-    memoryWebpage : "../memory/memoryPlayer.html",
-    rssWebpage : "..pages/newsPage.html",
+    imageWebpage : "https://c9.io/aj222ah/1dv403laborationer-aj222ah/workspace/5-pwd/pages/imageViewer.html",
+    memoryWebpage : "https://c9.io/aj222ah/1dv403laborationer-aj222ah/workspace/5-pwd/memory/memoryPlayer.html",
+    rssWebpage : "https://c9.io/aj222ah/1dv403laborationer-aj222ah/workspace/5-pwd/pages/newsPage.html",
     
     init: function() {
         var picIcon = document.getElementById("imageIcon");
@@ -88,13 +88,13 @@ ADAJAWM.AppManager = {
     
     openImageViewerWindow : function(e) {
         var windowName = "ImageViewer" + ADAJAWM.AppManager.windowCounter;
-        ADAJAWM.AppManager.windowArray[ADAJAWM.AppManager.windowCounter] = window.open(ADAJAWM.AppManager.imageWebpage, windowName, "width=560,height=600px,scrollable=no");
+        ADAJAWM.AppManager.windowArray[ADAJAWM.AppManager.windowCounter] = window.open(ADAJAWM.AppManager.imageWebpage, windowName, "width=480px,height=500px");
         ADAJAWM.AppManager.windowCounter += 1;
     },
     
     openMemoryWindow : function(e) {
         var windowName = "Memory" + ADAJAWM.AppManager.windowCounter;
-        ADAJAWM.AppManager.windowArray[ADAJAWM.AppManager.windowCounter] = window.open(ADAJAWM.AppManager.memoryWebpage, windowName, "width=560,height=440px,scrollable=no");
+        ADAJAWM.AppManager.windowArray[ADAJAWM.AppManager.windowCounter] = window.open(ADAJAWM.AppManager.memoryWebpage, windowName, "width=560px,height=440px,scrollable=no");
         ADAJAWM.AppManager.windowCounter += 1;
     },
     
