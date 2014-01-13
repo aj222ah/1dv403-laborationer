@@ -2,90 +2,6 @@
 var ADAJAWM = ADAJAWM || {};
 ADAJAWM.windows = ADAJAWM.windows || {};
 
-ADAJAWM.windows.BasicWindow = function(width, height) {
-    var resize = "no";
-    var scroll = "no";
-    var statusBar = "yes";
-    
-    this.width = width;
-	this.height = height;
-    
-    this.setResize = function(resizable) {
-        resize = resizable;
-    };
-    
-    this.getResize = function() {
-        return resize;
-    };
-    
-    this.setScroll = function(scrollable) {
-        scroll = scrollable;
-    };
-    
-    this.getScroll = function() {
-        return scroll;
-    };
-    
-    this.setStatusBar = function(status) {
-        statusBar = status;
-    };
-    
-    this.getStatusBar = function() {
-        return statusBar;
-    };
-    
-    this.setHeight = function(winHeight) {
-        height = winHeight;
-    };
-    
-    this.getHeight = function() {
-        return height;
-    };
-    
-    this.setWidth = function(winWidth) {
-        width = winWidth;
-    };
-    
-    this.getWidth = function() {
-        return width;
-    };
-};
-
-ADAJAWM.windows.BasicWindow.prototype.getAttrString = function() {
-    return "width=" + this.getWidth() + "px,height=" + this.getHeight() + "px,resize=" + this.getResize() + ",scrollbars=" + this.getScroll() + ",status=" + this.getStatusBar();
-};
-
-ADAJAWM.windows.BasicWindow.prototype.openNew = function(address, windowName, attr) {
-    window.open(address, windowName, attr);
-};
-
-ADAJAWM.windows.ImageViewerWindow = function() {
-    var height = 500;
-    var width = 480;
-    
-    ADAJAWM.windows.BasicWindow.call(this, width, height);
-};
-
-ADAJAWM.windows.ImageViewerWindow = new ADAJAWM.windows.BasicWindow();
-
-ADAJAWM.windows.MemoryGameWindow = function() {
-    var height = 440;
-    var width = 560;
-    
-    ADAJAWM.windows.BasicWindow.call(this, width, height);
-};
-
-ADAJAWM.windows.MemoryGameWindow = new ADAJAWM.windows.BasicWindow();
-
-ADAJAWM.windows.RSSFeedWindow = function() {
-    var height = 600;
-    var width = 580;
-    
-    ADAJAWM.windows.BasicWindow.call(this, width, height);
-};
-
-ADAJAWM.windows.RSSFeedWindow = new ADAJAWM.windows.BasicWindow();
-
 ADAJAWM.AppManager = {
     windowArray : [],
     windowCounter : 0,
@@ -113,8 +29,7 @@ ADAJAWM.AppManager = {
     openMemoryWindow : function(e) {
         var windowName = "Memory" + ADAJAWM.AppManager.windowCounter;
         // array[index] = new window
-        ADAJAWM.AppManager.windowArray[ADAJAWM.AppManager.windowCounter] = new ADAJAWM.windows.MemoryGameWindow();
-        //ADAJAWM.AppManager.windowArray[ADAJAWM.AppManager.windowCounter] = window.open(ADAJAWM.AppManager.imageWebpage, windowName, "width=480px,height=500px,scrollbars=no,status=yes");
+        ADAJAWM.AppManager.windowArray[ADAJAWM.AppManager.windowCounter] = window.open(ADAJAWM.AppManager.memoryWebpage, windowName, "width=560px,height=440px,scrollbars=no,status=yes");
         ADAJAWM.AppManager.windowCounter += 1;
     },
     

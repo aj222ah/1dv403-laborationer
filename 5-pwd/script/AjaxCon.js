@@ -1,3 +1,6 @@
+"use strict";
+// Från kursens Exempel-E12, har enbart ändrat några småsaker
+
 function AjaxCon(url, callback){
 
 	var xhr = this.getXHR();
@@ -18,8 +21,6 @@ function AjaxCon(url, callback){
 	};
 
 	xhr.open("get", url, true);
-	
-	
 	
 	xhr.send(null);
   }

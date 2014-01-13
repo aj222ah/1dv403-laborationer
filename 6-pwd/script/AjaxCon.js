@@ -1,3 +1,5 @@
+"use strict";
+// Från kursens Exempel-E12, har enbart ändrat några småsaker
 function AjaxCon(url, callback){
 
 	var xhr = this.getXHR();

@@ -136,20 +136,25 @@ nav img {
 }
 
 #waitMessage {
-    width: 150px;
-    height: 100px;
+    width: 100%;
+    height: 20px;
     background-color: white;
     display: block;
     padding: 20px;
-    margin-top: 25px;
-    margin-left: 100px;
 }
 
 #waitMessage p {
     font-family: Georgia;
-    font-size: 14pt;
+    font-size: 10pt;
     text-align: center;
     padding-bottom: 10px;
+    margin-top: -15px;
+}
+
+#waitMessage img {
+    display: inline;
+    padding-left: 180px;
+    margin-top: 5;
 }
 
 #waitMessage .hidden {

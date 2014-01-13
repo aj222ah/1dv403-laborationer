@@ -1,8 +1,8 @@
 "use strict";
 var ADAJAWM = ADAJAWM || {};
-ADAJAWM.pages = ADAJAWM.pages || {};
+ADAJAWM.windows = ADAJAWM.windows || {};
 
-ADAJAWM.pages.RssFeed = function RssFeed(url) {
+ADAJAWM.windows.RssFeed = function RssFeed(url) {
     var currentURL = url;
     
     this.getUrl = function() {
@@ -10,7 +10,7 @@ ADAJAWM.pages.RssFeed = function RssFeed(url) {
     };
 };
 
-ADAJAWM.pages.RssFeed.updateRssFeed = function(newsArray) {
+ADAJAWM.windows.RssFeed.updateRssFeed = function(newsArray) {
         var waitMessage, placeHolder, x, nodeList = [];
         
         if (document.getElementById("waitMessage")) {
@@ -29,19 +29,16 @@ ADAJAWM.pages.RssFeed.updateRssFeed = function(newsArray) {
         placeHolder.innerHTML += newsArray;
         
         window.setTimeout(function() {
-            new AjaxCon(ADAJAWM.pages.RSSManager.rssFeed[0].getUrl(), ADAJAWM.pages.RssFeed.updateRssFeed);
+            new AjaxCon(ADAJAWM.windows.RSSManager.rssFeed[0].getUrl(), ADAJAWM.windows.RssFeed.updateRssFeed);
         }, 60000);
     };
 
-ADAJAWM.pages.RSSManager = {
+ADAJAWM.windows.RSSManager = {
     rssFeed : [],
     init : function() {
         var placeHolderWait;
-        ADAJAWM.pages.RSSManager.rssFeed[0] = new ADAJAWM.pages.RssFeed("http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.dn.se/m/rss/senaste-nytt"));
-        //var url = "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/";
-        //var url = "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.dn.se/m/rss/senaste-nytt");
-        var url = "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.aftonbladet.se/rss.xml");
-        new AjaxCon(ADAJAWM.pages.RSSManager.rssFeed[0].getUrl(), ADAJAWM.pages.RssFeed.updateRssFeed);
+        ADAJAWM.windows.RSSManager.rssFeed[0] = new ADAJAWM.windows.RssFeed("http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.dn.se/m/rss/senaste-nytt"));
+        new AjaxCon(ADAJAWM.windows.RSSManager.rssFeed[0].getUrl(), ADAJAWM.windows.RssFeed.updateRssFeed);
         window.setTimeout(function() {
             placeHolderWait = document.getElementById("waitMessage");
             if (document.getElementById("waitMessage")) {
@@ -52,4 +49,4 @@ ADAJAWM.pages.RSSManager = {
     },
 }
     
-window.addEventListener("load", ADAJAWM.pages.RSSManager.init, false);
+window.addEventListener("load", ADAJAWM.windows.RSSManager.init, false);
