@@ -33,15 +33,15 @@ ADAJAWM.windows.RssFeed.updateRssFeed = function(newsArray) {
         }, 60000);
     };
 
-ADAJAWM.windows.RSSManager = {
+ADAJAWM.windows.RssFeedHandler = {
     rssFeed : [],
     init : function() {
         var placeHolderWait;
-        ADAJAWM.windows.RSSManager.rssFeed[0] = new ADAJAWM.windows.RssFeed("http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.dn.se/m/rss/senaste-nytt"));
+        ADAJAWM.windows.RssFeedHandler.rssFeed[0] = new ADAJAWM.windows.RssFeed("http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.dn.se/m/rss/senaste-nytt"));
         //var url = "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/";
         //var url = "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.dn.se/m/rss/senaste-nytt");
         var url = "http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.aftonbladet.se/rss.xml");
-        new AjaxCon(ADAJAWM.windows.RSSManager.rssFeed[0].getUrl(), ADAJAWM.windows.RssFeed.updateRssFeed);
+        new AjaxCon(ADAJAWM.windows.RssFeedHandler.rssFeed[0].getUrl(), ADAJAWM.windows.RssFeed.updateRssFeed);
         window.setTimeout(function() {
             placeHolderWait = document.getElementById("waitMessage");
             if (document.getElementById("waitMessage")) {
@@ -52,4 +52,4 @@ ADAJAWM.windows.RSSManager = {
     },
 }
     
-window.addEventListener("load", ADAJAWM.windows.RSSManager.init, false);
+window.addEventListener("load", ADAJAWM.windows.RssFeedHandler.init, false);

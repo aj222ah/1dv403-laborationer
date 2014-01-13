@@ -6,7 +6,7 @@ ADAJAWM.windows = ADAJAWM.windows || {};
 ADAJAWM.windows.MyImagesApp = {
     images : [],
     
-    imageHandler: function(picArray) {
+    displayThumbnails: function(picArray) {
         var i, aList, widthString, heightString;
         var imageLink, imageTag, thumbWidth = 0, thumbHeight = 0;
         var placement = document.getElementById("displayArea");
@@ -59,7 +59,7 @@ ADAJAWM.windows.MyImagesApp = {
     init: function() {
         var placeHolderWait;
         var url = "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/";
-        new AjaxCon(url, ADAJAWM.windows.MyImagesApp.imageHandler);
+        new AjaxCon(url, ADAJAWM.windows.MyImagesApp.displayThumbnails);
         
         window.setTimeout(function() {
             placeHolderWait = document.getElementById("displayArea");
