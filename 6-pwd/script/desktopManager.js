@@ -59,14 +59,14 @@ ADAJAWM.windows.BasicWindow.prototype.openNew = function(address, windowName, at
     window.open(address, windowName, attr);
 };
 
-ADAJAWM.windows.ImageViewerWindow = function() {
+ADAJAWM.windows.GalleryWindow = function() {
     var height = 500;
     var width = 480;
     
     ADAJAWM.windows.BasicWindow.call(this, width, height);
 };
 
-ADAJAWM.windows.ImageViewerWindow = new ADAJAWM.windows.BasicWindow();
+ADAJAWM.windows.GalleryWindow = new ADAJAWM.windows.BasicWindow();
 
 ADAJAWM.windows.MemoryGameWindow = function() {
     var height = 440;
@@ -86,44 +86,45 @@ ADAJAWM.windows.RSSFeedWindow = function() {
 
 ADAJAWM.windows.RSSFeedWindow = new ADAJAWM.windows.BasicWindow();
 
-ADAJAWM.AppManager = {
+ADAJAWM.DesktopManager = {
     windowArray : [],
     windowCounter : 0,
-    imageWebpage : "https://c9.io/aj222ah/1dv403laborationer-aj222ah/workspace/5-pwd/pages/imageViewer.html",
-    memoryWebpage : "https://c9.io/aj222ah/1dv403laborationer-aj222ah/workspace/5-pwd/memory/memoryPlayer.html",
-    rssWebpage : "https://c9.io/aj222ah/1dv403laborationer-aj222ah/workspace/5-pwd/pages/newsPage.html",
+    galleryAddress : "../windows/gallery.html",
+    memoryGameAddress : "../windows/memoryGame.html",
+    rssFeedAddress : "../windows/rssFeed.html",
     
     init: function() {
         var picIcon = document.getElementById("imageIcon");
         var gameIcon = document.getElementById("gamesIcon");
         var newsIcon = document.getElementById("rssIcon");
         
-        picIcon.addEventListener("click", ADAJAWM.AppManager.openImageViewerWindow, false);
-        gameIcon.addEventListener("click", ADAJAWM.AppManager.openMemoryWindow, false);
-        newsIcon.addEventListener("click", ADAJAWM.AppManager.openRssWindow, false);
+        picIcon.addEventListener("click", ADAJAWM.DesktopManager.openGalleryWindow, false);
+        gameIcon.addEventListener("click", ADAJAWM.DesktopManager.openMemoryGameWindow, false);
+        newsIcon.addEventListener("click", ADAJAWM.DesktopManager.openRssFeedWindow, false);
         
     },
     
-    openImageViewerWindow : function(e) {
-        var windowName = "ImageViewer" + ADAJAWM.AppManager.windowCounter;
-        ADAJAWM.AppManager.windowArray[ADAJAWM.AppManager.windowCounter] = window.open(ADAJAWM.AppManager.imageWebpage, windowName, "width=480px,height=500px,status=yes");
-        ADAJAWM.AppManager.windowCounter += 1;
+    openGalleryWindow : function(e) {
+        var windowName = "ImageViewer" + ADAJAWM.DesktopManager.windowCounter;
+        ADAJAWM.DesktopManager.windowArray[ADAJAWM.DesktopManager.windowCounter] = window.open(ADAJAWM.DesktopManager.galleryAddress, windowName, "width=480px,height=500px,status=yes");
+        ADAJAWM.DesktopManager.windowCounter += 1;
     },
     
-    openMemoryWindow : function(e) {
-        var windowName = "Memory" + ADAJAWM.AppManager.windowCounter;
+    openMemoryGameWindow : function(e) {
+        var windowName = "Memory" + ADAJAWM.DesktopManager.windowCounter;
         // array[index] = new window
-        ADAJAWM.AppManager.windowArray[ADAJAWM.AppManager.windowCounter] = new ADAJAWM.windows.MemoryGameWindow();
-        //ADAJAWM.AppManager.windowArray[ADAJAWM.AppManager.windowCounter] = window.open(ADAJAWM.AppManager.imageWebpage, windowName, "width=480px,height=500px,scrollbars=no,status=yes");
-        ADAJAWM.AppManager.windowCounter += 1;
+        ADAJAWM.DesktopManager.windowArray[ADAJAWM.DesktopManager.windowCounter] = new ADAJAWM.windows.MemoryGameWindow();
+        //ADAJAWM.DesktopManager.windowArray[ADAJAWM.DesktopManager.windowCounter] = window.open(ADAJAWM.DesktopManager.memoryGameAddress, windowName, "width=480px,height=500px,scrollbars=no,status=yes");
+        ADAJAWM.DesktopManager.windowArray[ADAJAWM.DesktopManager.windowCounter].openNew();
+        ADAJAWM.DesktopManager.windowCounter += 1;
     },
     
-    openRssWindow : function(e) {
-        var windowName = "RssFeed" + ADAJAWM.AppManager.windowCounter;
-        ADAJAWM.AppManager.windowArray[ADAJAWM.AppManager.windowCounter] = window.open(ADAJAWM.AppManager.rssWebpage, windowName, "width=580px,height=600px,scrollbars=no,status=yes");
-        ADAJAWM.AppManager.windowCounter += 1;
+    openRssFeedWindow : function(e) {
+        var windowName = "RssFeed" + ADAJAWM.DesktopManager.windowCounter;
+        ADAJAWM.DesktopManager.windowArray[ADAJAWM.DesktopManager.windowCounter] = window.open(ADAJAWM.DesktopManager.rssFeedAddress, windowName, "width=580px,height=600px,scrollbars=no,status=yes");
+        ADAJAWM.DesktopManager.windowCounter += 1;
     },
      
 };
 
-window.addEventListener("load", ADAJAWM.AppManager.init, false);
+window.addEventListener("load", ADAJAWM.DesktopManager.init, false);

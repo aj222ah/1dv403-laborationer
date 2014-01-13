@@ -2,20 +2,20 @@
 <html lang="sv">
 	<head>
 		<meta charset="utf-8" />
-		<title>Mina bilder</title>
+		<title>RSS-uppdateringar</title>
 		<link rel="stylesheet" href="../css/basic.css" />         
-		<link rel="shortcut icon" href="../images/Pics.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="../images/RSS.ico" type="image/x-icon" />
 	</head>
-	<body id="displayBody">
+	<body id="newsBody">
 	    <main>
-	        <section id="displayArea">
+	        <section id="newsFeed">
 	            <div id="waitMessage" class="hidden">
-	                <p>Hämtar bilder...</p>
+	                <p>Uppdaterar flödet...</p>
 	                <img src="../images/ajax-loader.gif" alt="Vänta-animation" >
 	            </div>
 	        </section>
         </main>
         <script src="../script/AjaxCon.js"></script>
-    	<script src="../script/imageHandler.js"></script>
+    	<script src="../script/rssDisplayer.js"></script>
 	</body>	
 </html>
