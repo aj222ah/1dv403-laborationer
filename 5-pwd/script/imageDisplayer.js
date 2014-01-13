@@ -54,7 +54,7 @@ ADAJAWM.pages.MyImagesApp = {
         var index = imageID.slice(sliceIndex + 1);
         var imageHeight = "height=" + ADAJAWM.pages.MyImagesApp.images[index].height + "px,";
         var imageWidth = "width=" + ADAJAWM.pages.MyImagesApp.images[index].width + "px,";
-        var scrollString = "scrollable=no";
+        var scrollString = "scrollbars=no";
         
         window.open(ADAJAWM.pages.MyImagesApp.images[index].URL, "Bild" + (index + 1), imageWidth + imageHeight + scrollString);
     },
@@ -64,7 +64,7 @@ ADAJAWM.pages.MyImagesApp = {
         var url = "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/";
         new AjaxCon(url, ADAJAWM.pages.MyImagesApp.imageHandler);
         
-        window.setTimeOut(function() {
+        window.setTimeout(function() {
             placeHolderWait = document.getElementById("displayArea");
             placeHolderWait.removeAttribute("class");
         }, 1000);

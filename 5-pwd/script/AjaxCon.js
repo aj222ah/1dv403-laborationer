@@ -19,6 +19,8 @@ function AjaxCon(url, callback){
 
 	xhr.open("get", url, true);
 	
+	
+	
 	xhr.send(null);
   }
 
