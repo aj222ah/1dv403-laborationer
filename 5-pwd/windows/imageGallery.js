@@ -52,8 +52,9 @@ ADAJAWM.windows.MyImagesApp = {
         var imageID = this.getAttribute("id");
         var sliceIndex = imageID.indexOf(" ");
         var index = imageID.slice(sliceIndex + 1);
+        //var body = document.querySelector("#startPage");
         
-        document.body.style.backgroundImage = "url(" + ADAJAWM.windows.MyImagesApp.images[index].URL + ")";
+        body.style.backgroundImage = "url(" + ADAJAWM.windows.MyImagesApp.images[index].URL + ")";
     },
     
     init: function() {
