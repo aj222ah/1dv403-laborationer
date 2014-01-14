@@ -1,13 +1,13 @@
 "use strict";
 var ADAJAWM = ADAJAWM || {};
 ADAJAWM.windows = ADAJAWM.windows || {};
-ADAJAWM.memory = ADAJAWM.memory || {};
+ADAJAWM.windows.memory = ADAJAWM.windows.memory || {};
 
 
-ADAJAWM.memory.Brick = function Brick (value) {
+ADAJAWM.windows.memory.Brick = function Brick (value) {
     var flipped = "false";
-    var back = "../images/memory/0.png";
-    var front = "../images/memory/" + value + ".png";
+    var back = "images/memory/0.png";
+    var front = "images/memory/" + value + ".png";
     
     this.getValue = function() {
         return value;
@@ -34,7 +34,7 @@ ADAJAWM.memory.Brick = function Brick (value) {
     };
 };
 
-ADAJAWM.memory.Brick.prototype.flip = function() {
+ADAJAWM.windows.memory.Brick.prototype.flip = function() {
     if (this.getStatus() === "true") {
         this.setStatus("false");
         return this.getBack();
@@ -46,7 +46,7 @@ ADAJAWM.memory.Brick.prototype.flip = function() {
         
 };
 
-ADAJAWM.memory.Memory = function Memory(rows, cols, placeHolder) {
+ADAJAWM.windows.memory.Memory = function Memory(rows, cols, placeHolder) {
     var boardPlacement, brickAccessArray, brickRef1, brickRef2;
     var bricks = [];
     var pairs = 0, rounds = 0;
@@ -86,7 +86,7 @@ ADAJAWM.memory.Memory = function Memory(rows, cols, placeHolder) {
         var table, tbody, i;
         
         for (i = 0; i < tempBricks.length; i++) {
-            bricks[i] = new ADAJAWM.memory.Brick(tempBricks[i]);
+            bricks[i] = new ADAJAWM.windows.memory.Brick(tempBricks[i]);
         }
         
         table = document.createElement("table");
@@ -163,6 +163,7 @@ ADAJAWM.memory.Memory = function Memory(rows, cols, placeHolder) {
                     messageP = document.createElement("p");
                     messageText = document.createTextNode("Grattis! Det tog dig " + rounds + " omgångar att klara memoryt.");
                     messageP.appendChild(messageText);
+                    messageP.setAttribute("class", "congrats")
                     boardPlacement.appendChild(messageP);
                 }
             }
@@ -178,12 +179,3 @@ ADAJAWM.memory.Memory = function Memory(rows, cols, placeHolder) {
         }
     };
 };
-
-ADAJAWM.memory.MemoryApp = {
-    init: function() {
-      var memoryGame1 = new ADAJAWM.memory.Memory(4, 6, "game1");
-      memoryGame1.start();
-    },
-};
-
-window.addEventListener("load", ADAJAWM.memory.MemoryApp.init, false);
