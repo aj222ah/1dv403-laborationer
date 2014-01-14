@@ -86,7 +86,6 @@ ADAJAWM.windows.ImageGallery = function ImageGallery(placementID){
     },
 
     this.setBackgroundImage = function(e) {
-        alert("Funkar");
         var imageID = this.getAttribute("id");
         var sliceIndex = imageID.indexOf(" ");
         var index = imageID.slice(sliceIndex + 1);
@@ -98,10 +97,12 @@ ADAJAWM.windows.ImageGallery = function ImageGallery(placementID){
     this.start = function() {
         var url = "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/";
         new AjaxCon(url, this.displayThumbnails);
-        var placement;
+        var placement = [], loadText;
         
         window.setTimeout(function() {
-            //placement = ADAJAWM.windows.ImageGallery.getPlacement(); //.parentNode().getElementsByClassName("windowFooter");
+            placement = document.getElementById(that.getPlacement()).parentNode.getElementsByClassName("windowFooter");
+            loadText = document.createTextNode("Laddar...");
+            placement.appendChild(loadText);
         }, 1000);
     }
 };

@@ -117,6 +117,7 @@ nav img {
     padding-bottom: 3px;
     color: white;
     background-color: rgb(64, 0, 0);
+    text-align: left;
 }
 
 .windowHeader::before {
