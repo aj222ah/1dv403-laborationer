@@ -113,7 +113,7 @@ ADAJAWM.windows.ImageGallery = function ImageGallery(placementID){
             loadP.setAttribute("class", "waitMessage");
             placement[0].appendChild(loadP);
         }, 1000);
-    }
+    };
 };
 
     

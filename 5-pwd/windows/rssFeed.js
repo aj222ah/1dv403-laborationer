@@ -41,7 +41,6 @@ ADAJAWM.windows.RssFeed = function RssFeed(placementID, url) {
 
     this.start = function() {
         var placement, loadP, loadText;
-        
         new ADAJAWM.script.AjaxCon(this.getUrl(), this.updateRssFeed);
         
         placement = document.getElementById(that.getPlacement()).parentNode.getElementsByClassName("windowFooter");

@@ -1,11 +1,76 @@
 "use strict";
 var ADAJAWM = ADAJAWM || {};
 ADAJAWM.windows = ADAJAWM.windows || {};
-
-ADAJAWM.windows.BasicWindow = function(width, height) {
+/*
+ADAJAWM.windows.BasicWindow = function(windowNumber) {
     var topPosition, leftPosition;
+    var edgeRight = 1180, edgeBottom = 680, windowHeight = 403, windowWidth = 456, standardMoveDistance = 20;
+    
+    this.position = function(windowNumber) {
+        var right, bottom, left = 20, top = 20;
+        if (windowNumber > 0) {
+            left += windowNumber * standardMoveDistance;
+            top += windowNumber * standardMoveDistance;
+            
+            if ((top + windowHeight) < edgeBottom || (left + windowWidth) < edgeRight) {
+                
+            }
+        }
+    };
 };
 
+ADAJAWM.windows.BasicWindow.prototype.openWindow = function(windowNumber, windowType) {
+    var placementArea = document.getElementById("windowDisplayArea");
+    var windowID = windowType + windowNumber;
+    var section, title, titleText, galleryDiv, headerDiv, footerDiv, closeLink, closeIcon, closeMe;
+    
+    section = document.createElement("section");
+    section.setAttribute("class", windowType + "Window");
+    section.setAttribute("id", windowNumber);
+    headerDiv = document.createElement("div");
+    title = document.createElement("p");
+    
+    if (windowType === "gallery") {
+        titleText = document.createTextNode("Bildgalleri");
+    }
+    else if (windowType === "memory") {
+        titleText = document.createTextNode("Memory");
+    }
+    else if (windowType === "rss") {
+        titleText = document.createTextNode("RSS-Feed");
+    }
+    
+    closeLink = document.createElement("a");
+    closeLink.setAttribute("href", "#");
+    closeLink.setAttribute("title", "Stäng fönster");
+    closeLink.setAttribute("id", "close" + windowNumber);
+    closeLink.setAttribute("class", "closeLink");
+    closeIcon = document.createElement("img");
+    closeIcon.setAttribute("src", "images/Close-icon.png");
+    closeIcon.setAttribute("alt", "Stäng");
+    closeIcon.setAttribute("class", "closeIcon");
+    headerDiv.setAttribute("class", "windowHeader");
+    galleryDiv = document.createElement("div");
+    galleryDiv.setAttribute("id", windowID);
+    galleryDiv.setAttribute("class", windowType + "Area");
+    footerDiv = document.createElement("div");
+    footerDiv.setAttribute("class", "windowFooter");
+    
+    title.appendChild(titleText);
+    headerDiv.appendChild(title);
+    closeLink.appendChild(closeIcon);
+    headerDiv.appendChild(closeLink);
+    section.appendChild(headerDiv);
+    section.appendChild(galleryDiv);
+    section.appendChild(footerDiv);
+    placementArea.appendChild(section);
+    
+    closeMe = document.getElementById("close" + windowNumber);
+    closeMe.addEventListener("click", ADAJAWM.DesktopManager.closeWindow, false);
+    
+    return windowID;
+};
+*/
 ADAJAWM.windows.GalleryWindow = function(windowNumber) {
     var placementArea = document.getElementById("windowDisplayArea");
     var windowID = "gallery" + windowNumber;
@@ -42,6 +107,7 @@ ADAJAWM.windows.GalleryWindow = function(windowNumber) {
     section.appendChild(galleryDiv);
     section.appendChild(footerDiv);
     placementArea.appendChild(section);
+
     
     closeMe = document.getElementById("close" + windowNumber);
     closeMe.addEventListener("click", ADAJAWM.DesktopManager.closeWindow, false);
@@ -50,9 +116,18 @@ ADAJAWM.windows.GalleryWindow = function(windowNumber) {
     tempGallery.start();
     
     //ADAJAWM.windows.BasicWindow.call();
+    //this.openNewGalleryWindow();
 };
 
-//ADAJAWM.windows.GalleryWindow = new ADAJAWM.windows.BasicWindow();
+/*ADAJAWM.windows.GalleryWindow = new ADAJAWM.windows.BasicWindow();
+
+ADAJAWM.windows.GalleryWindow.openNewGalleryWindow = function(windowNumber) {
+    alert("???");
+    var windowID = this.openWindow(windowNumber, "gallery");
+    var tempGallery = new ADAJAWM.windows.ImageGallery(windowID);
+    tempGallery.start();
+};
+*/
 
 ADAJAWM.windows.MemoryGameWindow = function(windowNumber) {
     var placementArea = document.getElementById("windowDisplayArea");
@@ -162,7 +237,6 @@ ADAJAWM.DesktopManager = {
         picIcon.addEventListener("click", ADAJAWM.DesktopManager.openGalleryWindow, false);
         gameIcon.addEventListener("click", ADAJAWM.DesktopManager.openMemoryGameWindow, false);
         newsIcon.addEventListener("click", ADAJAWM.DesktopManager.openRssFeedWindow, false);
-        
     },
     
     openGalleryWindow : function(e) {
