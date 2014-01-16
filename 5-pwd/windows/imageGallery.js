@@ -49,7 +49,13 @@ ADAJAWM.windows.ImageGallery = function ImageGallery(placementID){
     
     this.displayThumbnails = function(picString) {
         var i, aList, widthString, heightString, placementID = document.getElementById(that.getPlacement());
-        var imageLink, imageTag, thumbWidth = 0, thumbHeight = 0;
+        var imageLink, imageTag, windowFooter, thumbWidth = 0, thumbHeight = 0;
+        
+        windowFooter = placementID.parentNode.getElementsByClassName("windowFooter");
+        
+        while (windowFooter[0].hasChildNodes()) {
+            windowFooter[0].firstChild.parentNode.removeChild(windowFooter[0].firstChild);
+        }
         
         that.setImages(picString);
         
@@ -97,12 +103,15 @@ ADAJAWM.windows.ImageGallery = function ImageGallery(placementID){
     this.start = function() {
         var url = "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/";
         new AjaxCon(url, this.displayThumbnails);
-        var placement = [], loadText;
+        var placement = [], loadText, loadP, loadImage;
         
         window.setTimeout(function() {
             placement = document.getElementById(that.getPlacement()).parentNode.getElementsByClassName("windowFooter");
+            loadP = document.createElement("p");
             loadText = document.createTextNode("Laddar...");
-            placement.appendChild(loadText);
+            loadP.appendChild(loadText);
+            loadP.setAttribute("class", "waitMessage");
+            placement[0].appendChild(loadP);
         }, 1000);
     }
 };

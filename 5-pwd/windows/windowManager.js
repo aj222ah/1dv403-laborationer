@@ -14,24 +14,26 @@ ADAJAWM.windows.BasicWindow.prototype.openNew = function() {
 
 ADAJAWM.windows.GalleryWindow = function(windowID) {
     var placementArea = document.getElementById("windowDisplayArea");
-    var section, title, titleText, statusbar, galleryDiv;
+    var section, title, titleText, galleryDiv, headerDiv, footerDiv;
     var tempGallery;
     
     section = document.createElement("section");
     section.setAttribute("class", "galleryWindow");
+    headerDiv = document.createElement("div");
     title = document.createElement("p");
     titleText = document.createTextNode("Bildgalleri");
-    title.setAttribute("class", "windowHeader");
+    headerDiv.setAttribute("class", "windowHeader");
     galleryDiv = document.createElement("div");
     galleryDiv.setAttribute("id", windowID);
     galleryDiv.setAttribute("class", "galleryArea");
-    statusbar = document.createElement("p");
-    statusbar.setAttribute("class", "windowFooter");
+    footerDiv = document.createElement("div");
+    footerDiv.setAttribute("class", "windowFooter");
     
     title.appendChild(titleText);
-    section.appendChild(title);
+    headerDiv.appendChild(title);
+    section.appendChild(headerDiv);
     section.appendChild(galleryDiv);
-    section.appendChild(statusbar);
+    section.appendChild(footerDiv);
     placementArea.appendChild(section);
     
     tempGallery = new ADAJAWM.windows.ImageGallery(windowID);
