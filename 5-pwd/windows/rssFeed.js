@@ -2,51 +2,53 @@
 var ADAJAWM = ADAJAWM || {};
 ADAJAWM.windows = ADAJAWM.windows || {};
 
-ADAJAWM.windows.RssFeed = function RssFeed(url) {
-    var currentURL = url;
+ADAJAWM.windows.RssFeed = function RssFeed(placementID, url) {
+    var currentUrl = url;
+    var that = this;
     
     this.getUrl = function() {
-        return currentURL;
+        return currentUrl;
     };
-};
+    
+    this.setUrl = function(newUrl) {
+        currentUrl = newUrl;
+    };
+    
+    this.getPlacement = function() {
+        return placementID;
+    };
 
-ADAJAWM.windows.RssFeed.updateRssFeed = function(newsArray) {
-        var waitMessage, placeHolder, x, nodeList = [];
+
+    this.updateRssFeed = function(newsArray) {
+        var windowFooter = [], placementID = document.getElementById(that.getPlacement());
         
-        if (document.getElementById("waitMessage")) {
-            waitMessage = document.getElementById("waitMessage");
-            waitMessage.parentNode.removeChild(waitMessage);
-        }
-        else if (document.getElementById("newsFeed").hasChildNodes()) {
-            nodeList = document.getElementById("newsFeed").childNodes;
-            
-            for (x = 0; x < nodeList.length ; x++) {
-                nodeList[x].parentNode.removeChild(nodeList[x]);
-            }
+        windowFooter = placementID.parentNode.getElementsByClassName("windowFooter");
+        
+        while (windowFooter[0].hasChildNodes()) {
+            windowFooter[0].firstChild.parentNode.removeChild(windowFooter[0].firstChild);
         }
         
-        placeHolder = document.getElementById("newsFeed");
-        placeHolder.innerHTML += newsArray;
+        while (placementID.hasChildNodes()) {
+            placementID.firstchild.parentNode.removeChild(placementID.firstChild);
+        }
+        
+        placementID.innerHTML += newsArray;
         
         window.setTimeout(function() {
-            new AjaxCon(ADAJAWM.windows.RSSManager.rssFeed[0].getUrl(), ADAJAWM.windows.RssFeed.updateRssFeed);
+            new ADAJAWM.script.AjaxCon(that.getUrl(), that.updateRssFeed);
         }, 60000);
     };
 
-ADAJAWM.windows.RSSManager = {
-    rssFeed : [],
-    init : function() {
-        var placeHolderWait;
-        ADAJAWM.windows.RSSManager.rssFeed[0] = new ADAJAWM.windows.RssFeed("http://homepage.lnu.se/staff/tstjo/labbyServer/rssproxy/?url="+escape("http://www.dn.se/m/rss/senaste-nytt"));
-        new AjaxCon(ADAJAWM.windows.RSSManager.rssFeed[0].getUrl(), ADAJAWM.windows.RssFeed.updateRssFeed);
-        window.setTimeout(function() {
-            placeHolderWait = document.getElementById("waitMessage");
-            if (document.getElementById("waitMessage")) {
-                placeHolderWait.removeAttribute("class");
-            }
-            
-        }, 1000);
-    },
-}
-    
-window.addEventListener("load", ADAJAWM.windows.RSSManager.init, false);
+    this.start = function() {
+        var placement, loadP, loadText;
+        
+        new ADAJAWM.script.AjaxCon(this.getUrl(), this.updateRssFeed);
+        
+        placement = document.getElementById(that.getPlacement()).parentNode.getElementsByClassName("windowFooter");
+        loadP = document.createElement("p");
+        loadText = document.createTextNode("Laddar...");
+        loadP.appendChild(loadText);
+        loadP.setAttribute("class", "waitMessage");
+        placement[0].appendChild(loadP);
+    };
+};

@@ -1,7 +1,9 @@
 "use strict";
 // Från kursens Exempel-E12, har enbart ändrat några småsaker
+var ADAJAWM = ADAJAWM || {};
+ADAJAWM.script = ADAJAWM.script || {};
 
-function AjaxCon(url, callback){
+ADAJAWM.script.AjaxCon = function AjaxCon(url, callback){
 
 	var xhr = this.getXHR();
 
@@ -23,9 +25,9 @@ function AjaxCon(url, callback){
 	xhr.open("get", url, true);
 	
 	xhr.send(null);
-  }
+};
 
-AjaxCon.prototype.getXHR = function(){
+ADAJAWM.script.AjaxCon.prototype.getXHR = function(){
 		var xhr = null;
 		try {
 			xhr = new XMLHttpRequest();	

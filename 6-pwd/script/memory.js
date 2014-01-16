@@ -46,7 +46,7 @@ ADAJAWM.memory.Brick.prototype.flip = function() {
         
 };
 
-ADAJAWM.memory.Memory = function Memory(rows, cols, placeHolder) {
+ADAJAWM.windows.Memory = function Memory(rows, cols, placeHolder) {
     var boardPlacement, brickAccessArray, brickRef1, brickRef2;
     var bricks = [];
     var pairs = 0, rounds = 0;

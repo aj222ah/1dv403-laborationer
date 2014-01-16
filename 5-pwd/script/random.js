@@ -1,4 +1,9 @@
-var RandomGenerator = {
+"use strict";
+// Från kursens laboration 3, har enbart ändrat några småsaker
+var ADAJAWM = ADAJAWM || {};
+ADAJAWM.script = ADAJAWM.script || {};
+
+ADAJAWM.script.RandomGenerator = function RandomGenerator(){
 	
 	/*
 		Denna metod tar antalet rader och columner som inparameter.
@@ -13,7 +18,7 @@ var RandomGenerator = {
 		[3,4,4,1,2,1,2,3]
 	*/
 	
-	getPictureArray: function(rows, cols)
+	this.getPictureArray = function(rows, cols)
 	{
 		var numberOfImages = rows*cols;
 		var maxImageNumber = numberOfImages/2;
@@ -57,5 +62,5 @@ var RandomGenerator = {
 		}
 		
 		return imgPlace;
-	}
-}
+	};
+};

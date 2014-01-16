@@ -80,7 +80,7 @@ ADAJAWM.windows.memory.Memory = function Memory(rows, cols, placeHolder) {
     boardPlacement = document.getElementById(this.getPlaceHolder());
     
     this.start = function() {
-        var tempBricks = RandomGenerator.getPictureArray(this.getRows(), this.getCols());
+        var tempBricks = new ADAJAWM.script.RandomGenerator().getPictureArray(this.getRows(), this.getCols());
         var rowCount = 0, colCount = 0, brickCount = 0;
         var tr = [], td = [], content = [], contentSurround = [];
         var table, tbody, i;
@@ -163,7 +163,7 @@ ADAJAWM.windows.memory.Memory = function Memory(rows, cols, placeHolder) {
                     messageP = document.createElement("p");
                     messageText = document.createTextNode("Grattis! Det tog dig " + rounds + " omgångar att klara memoryt.");
                     messageP.appendChild(messageText);
-                    messageP.setAttribute("class", "congrats")
+                    messageP.setAttribute("class", "congrats");
                     boardPlacement.appendChild(messageP);
                 }
             }

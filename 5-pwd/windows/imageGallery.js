@@ -102,8 +102,8 @@ ADAJAWM.windows.ImageGallery = function ImageGallery(placementID){
 
     this.start = function() {
         var url = "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/";
-        new AjaxCon(url, this.displayThumbnails);
-        var placement = [], loadText, loadP, loadImage;
+        new ADAJAWM.script.AjaxCon(url, this.displayThumbnails);
+        var placement = [], loadText, loadP;
         
         window.setTimeout(function() {
             placement = document.getElementById(that.getPlacement()).parentNode.getElementsByClassName("windowFooter");
