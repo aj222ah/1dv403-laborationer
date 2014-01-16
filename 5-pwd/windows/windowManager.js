@@ -12,9 +12,9 @@ ADAJAWM.windows.BasicWindow.prototype.getAttrString = function() {
 ADAJAWM.windows.BasicWindow.prototype.openNew = function() {
 };
 
-ADAJAWM.windows.GalleryWindow = function(windowID) {
+ADAJAWM.windows.GalleryWindow = function(windowID, windowNumber) {
     var placementArea = document.getElementById("windowDisplayArea");
-    var section, title, titleText, galleryDiv, headerDiv, footerDiv;
+    var section, title, titleText, galleryDiv, headerDiv, footerDiv, closeLink, closeIcon;
     var tempGallery;
     
     section = document.createElement("section");
@@ -22,6 +22,15 @@ ADAJAWM.windows.GalleryWindow = function(windowID) {
     headerDiv = document.createElement("div");
     title = document.createElement("p");
     titleText = document.createTextNode("Bildgalleri");
+    closeLink = document.createElement("a");
+    closeLink.setAttribute("href", "#");
+    closeLink.setAttribute("title", "Stäng fönster");
+    closeLink.setAttribute("id", windowNumber);
+    closeLink.setAttribute("class", "closeLink");
+    closeIcon = document.createElement("img");
+    closeIcon.setAttribute("src", "images/Close-icon2.png");
+    closeIcon.setAttribute("alt", "Stäng");
+    closeIcon.setAttribute("class", "closeIcon");
     headerDiv.setAttribute("class", "windowHeader");
     galleryDiv = document.createElement("div");
     galleryDiv.setAttribute("id", windowID);
@@ -31,10 +40,14 @@ ADAJAWM.windows.GalleryWindow = function(windowID) {
     
     title.appendChild(titleText);
     headerDiv.appendChild(title);
+    closeLink.appendChild(closeIcon);
+    headerDiv.appendChild(closeLink);
     section.appendChild(headerDiv);
     section.appendChild(galleryDiv);
     section.appendChild(footerDiv);
     placementArea.appendChild(section);
+    
+    
     
     tempGallery = new ADAJAWM.windows.ImageGallery(windowID);
     tempGallery.start();
@@ -97,17 +110,21 @@ ADAJAWM.DesktopManager = {
     
     openGalleryWindow : function(e) {
         var id = "gallery" + ADAJAWM.DesktopManager.windowCounter;
-        ADAJAWM.DesktopManager.windowArray[ADAJAWM.DesktopManager.windowCounter] = new ADAJAWM.windows.GalleryWindow(id);
+        ADAJAWM.DesktopManager.windowArray[ADAJAWM.DesktopManager.windowCounter] = new ADAJAWM.windows.GalleryWindow(id, ADAJAWM.DesktopManager.windowCounter);
         ADAJAWM.DesktopManager.windowCounter += 1;
     },
     
     openMemoryGameWindow : function(e) {
         var id = "memory" + ADAJAWM.DesktopManager.windowCounter;
-        ADAJAWM.DesktopManager.windowArray[ADAJAWM.DesktopManager.windowCounter] = new ADAJAWM.windows.MemoryGameWindow(id);
+        ADAJAWM.DesktopManager.windowArray[ADAJAWM.DesktopManager.windowCounter] = new ADAJAWM.windows.MemoryGameWindow(id, ADAJAWM.DesktopManager.windowCounter);
         ADAJAWM.DesktopManager.windowCounter += 1;
     },
     
     openRssFeedWindow : function(e) {
+        alert("Funkar!");
+    },
+    
+    closeWindow : function(e) {
         alert("Funkar!");
     },
      

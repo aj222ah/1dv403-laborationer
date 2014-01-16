@@ -98,6 +98,9 @@ nav img {
     -o-border-shadow: -5px 5px 5px 0 rgba(50, 50, 50, 0.75);
     box-shadow: -5px 5px 5px 0 rgba(50, 50, 50, 0.75);
     font-family: Garamond;
+    position: relative;
+    left: 20px;
+    top: 20px;
 }
 
 .memoryWindow {
@@ -105,7 +108,7 @@ nav img {
 }
 
 .galleryWindow {
-    width: 470px;
+    width: 440px;
     text-align: center;
 }
 
@@ -119,6 +122,14 @@ nav img {
     background-color: rgb(64, 0, 0);
     text-align: left;
 }
+/*
+.closeIcon {
+    position: relative;
+    right: 5px;
+    top: 3px;
+    padding: 0;
+    margin: 0;
+}*/
 
 .windowFooter {
     border-top: 3px solid rgb(64, 0, 0);
@@ -142,31 +153,35 @@ nav img {
     content: url(images/RSS.png);
 }
 
+.closeLink {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    right: 5px;
+    top: 3px;
+}
+
 .waitMessage::before {
     content: url("images/ajax-loader.gif");
 }
 
+/* Styling för spel-området */
 .gameArea {
     height: 390px;
 }
 
-.galleryArea {
-    height: 300px;
-    overflow-y: auto;
-}
-
-.memoryWindow table {
+.gameArea table {
     background-color: rgb(192, 192, 192);
     margin: auto;
     margin-top: 10px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
-.memoryWindow td {
+.gameArea td {
     padding: 5px;
 }
 
-.memoryWindow img {
+.gameArea img {
     border: 1px black solid;
     padding: 2px;
 }
@@ -180,13 +195,18 @@ nav img {
     padding-bottom: 5px;
 }
 
+/* Styling för galleri-området */
+.galleryArea {
+    height: 300px;
+    overflow-y: auto;
+}
 
-.galleryWindow img {
+.galleryArea img {
     margin: 0 auto;
     vertical-align: central;
 }
 
-.galleryWindow a {
+.galleryArea a {
     background-color: rgb(255, 225, 196);
     padding: 5px;
     margin: 10px;
@@ -195,6 +215,9 @@ nav img {
     text-decoration: none;
 }
 
+
+
+/* Styling för rss-området */
 .rssFeed {
     background-color: rgb(255, 240, 225);
     padding: 10px;
