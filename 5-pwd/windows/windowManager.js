@@ -71,6 +71,8 @@ ADAJAWM.windows.BasicWindow.prototype.openWindow = function(windowNumber, window
     return windowID;
 };
 */
+
+// Konstruktor för fönster med bildgalleri
 ADAJAWM.windows.GalleryWindow = function(windowNumber) {
     var placementArea = document.getElementById("windowDisplayArea");
     var windowID = "gallery" + windowNumber;
@@ -129,6 +131,7 @@ ADAJAWM.windows.GalleryWindow.openNewGalleryWindow = function(windowNumber) {
 };
 */
 
+// Konstruktor för memoryspelsfönster
 ADAJAWM.windows.MemoryGameWindow = function(windowNumber) {
     var placementArea = document.getElementById("windowDisplayArea");
     var windowID = "memory" + windowNumber;
@@ -176,6 +179,7 @@ ADAJAWM.windows.MemoryGameWindow = function(windowNumber) {
 
 //ADAJAWM.windows.MemoryGameWindow = new ADAJAWM.windows.BasicWindow();
 
+// Konstruktor för rss-flödesfönster
 ADAJAWM.windows.RSSFeedWindow = function(windowNumber) {
     var placementArea = document.getElementById("windowDisplayArea");
     var windowID = "rss" + windowNumber;
@@ -225,6 +229,7 @@ ADAJAWM.windows.RSSFeedWindow = function(windowNumber) {
 
 //ADAJAWM.windows.RSSFeedWindow = new ADAJAWM.windows.BasicWindow();
 
+// Skrivbordshanterare
 ADAJAWM.DesktopManager = {
     windowArray : [],
     windowCounter : 0,

@@ -2,6 +2,7 @@
 var ADAJAWM = ADAJAWM || {};
 ADAJAWM.windows = ADAJAWM.windows || {};
 
+// Konstruktor
 ADAJAWM.windows.RssFeed = function RssFeed(placementID, url) {
     var currentUrl = url;
     var that = this;
@@ -18,7 +19,7 @@ ADAJAWM.windows.RssFeed = function RssFeed(placementID, url) {
         return placementID;
     };
 
-
+    // Uppdatera Rss-flöde
     this.updateRssFeed = function(newsArray) {
         var windowFooter = [], placementID = document.getElementById(that.getPlacement());
         
@@ -39,6 +40,7 @@ ADAJAWM.windows.RssFeed = function RssFeed(placementID, url) {
         }, 60000);
     };
 
+    // Initiering av ny Rss-läsare
     this.start = function() {
         var placement, loadP, loadText;
         new ADAJAWM.script.AjaxCon(this.getUrl(), this.updateRssFeed);

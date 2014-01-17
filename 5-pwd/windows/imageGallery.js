@@ -2,7 +2,7 @@
 var ADAJAWM = ADAJAWM || {};
 ADAJAWM.windows = ADAJAWM.windows || {};
 
-
+// Konstruktorfunktion bildgalleri
 ADAJAWM.windows.ImageGallery = function ImageGallery(placementID){
     var images = [];
     var that = this;
@@ -47,6 +47,7 @@ ADAJAWM.windows.ImageGallery = function ImageGallery(placementID){
         return images.length;
     };
     
+    // Funktion för att visa bilderna i arrayen
     this.displayThumbnails = function(picString) {
         var i, aList, widthString, heightString, placementID = document.getElementById(that.getPlacement());
         var imageLink, imageTag, windowFooter, thumbWidth = 0, thumbHeight = 0;
@@ -91,6 +92,7 @@ ADAJAWM.windows.ImageGallery = function ImageGallery(placementID){
         }
     },
 
+    // Funktion som sätter aktuell bild som skrivbordsbakgrund
     this.setBackgroundImage = function(e) {
         var imageID = this.getAttribute("id");
         var sliceIndex = imageID.indexOf(" ");
@@ -100,6 +102,7 @@ ADAJAWM.windows.ImageGallery = function ImageGallery(placementID){
         desktop.style.backgroundImage = "url(" + that.getImageUrl(index) + ")";
     },
 
+    // Funktion för initiering av hämtning av bilder
     this.start = function() {
         var url = "http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/";
         new ADAJAWM.script.AjaxCon(url, this.displayThumbnails);

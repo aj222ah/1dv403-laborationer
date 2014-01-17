@@ -3,7 +3,7 @@ var ADAJAWM = ADAJAWM || {};
 ADAJAWM.windows = ADAJAWM.windows || {};
 ADAJAWM.windows.memory = ADAJAWM.windows.memory || {};
 
-
+// Konstruktor för memorybricka
 ADAJAWM.windows.memory.Brick = function Brick (value) {
     var flipped = "false";
     var back = "images/memory/0.png";
@@ -34,6 +34,7 @@ ADAJAWM.windows.memory.Brick = function Brick (value) {
     };
 };
 
+// Prototyp-funktion för att vända brick
 ADAJAWM.windows.memory.Brick.prototype.flip = function() {
     if (this.getStatus() === "true") {
         this.setStatus("false");
@@ -46,6 +47,7 @@ ADAJAWM.windows.memory.Brick.prototype.flip = function() {
         
 };
 
+// Konstruktorfunktion memoryspel
 ADAJAWM.windows.memory.Memory = function Memory(rows, cols, placeHolder) {
     var boardPlacement, brickAccessArray, brickRef1, brickRef2;
     var bricks = [];
@@ -79,6 +81,7 @@ ADAJAWM.windows.memory.Memory = function Memory(rows, cols, placeHolder) {
     
     boardPlacement = document.getElementById(this.getPlaceHolder());
     
+    // Skapande och utritning av spelplan
     this.start = function() {
         var tempBricks = new ADAJAWM.script.RandomGenerator().getPictureArray(this.getRows(), this.getCols());
         var rowCount = 0, colCount = 0, brickCount = 0;
@@ -126,6 +129,7 @@ ADAJAWM.windows.memory.Memory = function Memory(rows, cols, placeHolder) {
         }
     };
     
+    // Funktion som spelar memory vid klick på enbricka
     this.play = function(e) {
         if (!e) { var e = window.event; }
         var classString = this.getAttribute("class");
