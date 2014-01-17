@@ -115,7 +115,7 @@ ADAJAWM.windows.GalleryWindow = function(windowNumber) {
     tempGallery = new ADAJAWM.windows.ImageGallery(windowID);
     tempGallery.start();
     
-    //ADAJAWM.windows.BasicWindow.call();
+    //ADAJAWM.windows.BasicWindow.call(this, windowNumber);
     //this.openNewGalleryWindow();
 };
 
@@ -171,7 +171,7 @@ ADAJAWM.windows.MemoryGameWindow = function(windowNumber) {
     
     tempGame = new ADAJAWM.windows.memory.Memory(4, 6, windowID);
     tempGame.start();
-    //ADAJAWM.windows.BasicWindow.call();
+    //ADAJAWM.windows.BasicWindow.call(this, windowNumber);
 };
 
 //ADAJAWM.windows.MemoryGameWindow = new ADAJAWM.windows.BasicWindow();
@@ -220,7 +220,7 @@ ADAJAWM.windows.RSSFeedWindow = function(windowNumber) {
     tempFeed = new ADAJAWM.windows.RssFeed(windowID, url);
     tempFeed.start();
     
-    //ADAJAWM.windows.BasicWindow.call();
+    //ADAJAWM.windows.BasicWindow.call(this, windowNumber);
 };
 
 //ADAJAWM.windows.RSSFeedWindow = new ADAJAWM.windows.BasicWindow();
